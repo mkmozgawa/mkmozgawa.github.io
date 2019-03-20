@@ -16,4 +16,4 @@ I also co-organize [Rails Girls Poznan](http://www.railsgirls.com/poznan) and wi
 
 If you have an [interesting book to recommend](https://www.goodreads.com/user/show/90496754-magda), the best way to contact me is via [email](mailto:hello@magda.space).
 
-This page has been created using [Jekyll Now](https://github.com/barryclark/jekyll-now); its source code (and other silly projects of mine) are available [here](https://github.com/mkmozgawa).
+This page has been created using [Pelican](http://docs.getpelican.com/en/stable/index.html); its source code (and other silly projects of mine) are available [here](https://github.com/mkmozgawa).
