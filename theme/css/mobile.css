@@ -1,0 +1,13 @@
+body {
+  flex-direction: column;
+  align-content: flex-start;
+  max-width: 40em;
+}
+
+nav {
+  margin-bottom: -30px;
+}
+
+.sidebar nav li {
+  margin-right: 0.5em;
+  display: inline; }

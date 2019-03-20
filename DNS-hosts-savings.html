@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>On saving time and money with /etc/hosts | Magda Mozgawa</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+  <link rel="stylesheet" media="(max-width: 750px)" href="/theme/css/mobile.css" type="text/css" />
+  <link rel="stylesheet" href="/theme/css/github.css" type="text/css" />
+  <link href="/images/favicon.ico" rel="icon" type="image/x-icon" />
+  <meta name="description" content="On saving time and money with /etc/hosts">
+  <meta name="keywords" content="linux, lifehacks">
+  <meta name="author" content="Magda Mozgawa">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+  </aside>
+  <main>
+        
+<article class="column-right">
+  <h1 class="main-title">On saving time and money with /etc/hosts</h1>
+  <summary>
+    <p class="light">
+      Published
+      under <a href="./category/linux.html">Linux</a>,
+      tagged with <a href="./tag/linux.html">linux</a> and <a href="./tag/lifehacks.html">lifehacks</a>.
+    </p>
+  </summary>
+  <p>Recently whenever I'm bored, tired and with just 20 minutes to spare (bored enough so I can't go to sleep early but too tired to do anything productive, and turning on the console for <em>just 20 minutes</em> never works) I got onto the habit of browsing clothes, cosmetics, etc. Maybe I need to fill in some void, or maybe I've been succumbing again to the pressure of looking <em>presentable</em> when going to the office (after several months of remote work spent in some jeans and nondescript t-shirts). Either way, there's clearly a pattern here.</p>
+<p>So I gathered the websites I've been using too frequently for no good reason, and added them to <code>/etc/hosts</code>. After a while, I decided to impose that ban on some other sites that seem to bring no value to me. Currently the selection is as follows:</p>
+<div class="highlight"><pre><span></span># Block super stupid sites I don&#39;t want to waste my time on
+0.0.0.0 www.reserved.com
+0.0.0.0 reserved.com
+0.0.0.0 www.housebrand.com
+0.0.0.0 housebrand.com
+0.0.0.0 www.massimodutti.com
+0.0.0.0 massimodutti.com
+0.0.0.0 www.cropp.com
+0.0.0.0 cropp.com
+0.0.0.0 www.wolczanka.pl
+0.0.0.0 wolczanka.pl
+
+0.0.0.0 twitter.com
+0.0.0.0 www.twitter.com
+0.0.0.0 instagram.com
+0.0.0.0 www.instagram.com
+</pre></div>
+
+
+<p>I don't even have accounts on twitter and instagram anymore so why was I browsing them? Muscle memory, I think.</p>
+<p>Remember to restart the browser (and flush the dns beforehand, preferably) after each change. On Ubuntu 18.04, it's possible to flush dns with <code>sudo systemd-resolve --flush-caches</code>.</p>
+<p>Now what will I do with all that extra time? Perhaps I should order more books :)</p>
+</article>
+
+      <footer class="column-right light">
+        <nav><a href="/">Home</a> - <a href="/about.html">About me</a> - <a href="/archives.html">Archives</a> - <a href="/categories.html">Categories</a> - <a href="/tags.html">Tags</a> - <a href="/rss.xml">RSS</a> - <a href="https://creativecommons.org/licenses/by/4.0/">License</a></nav>
+      </footer>
+  </main>
+</body>
+</html>
