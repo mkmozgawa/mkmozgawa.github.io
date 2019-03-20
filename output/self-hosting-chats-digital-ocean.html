@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Setting up your own Rocketchat instance over https, and fast | Magda Mozgawa</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+  <link rel="stylesheet" media="(max-width: 750px)" href="/theme/css/mobile.css" type="text/css" />
+  <link rel="stylesheet" href="/theme/css/github.css" type="text/css" />
+  <link href="/images/favicon.ico" rel="icon" type="image/x-icon" />
+  <meta name="description" content="Setting up your own Rocketchat instance over https with Docker compose">
+  <meta name="keywords" content="devops, docker">
+  <meta name="author" content="Magda Mozgawa">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+      <nav>
+        <ul>
+        </ul>
+      </nav>
+
+  </aside>
+  <main>
+        
+<article class="column-right">
+  <h1 class="main-title">Setting up your own Rocketchat instance over https, and fast</h1>
+  <summary>
+    <p class="light">
+      Published
+      under <a href="./category/devops.html">DevOps</a>,
+      tagged with <a href="./tag/devops.html">devops</a> and <a href="./tag/docker.html">docker</a>.
+    </p>
+  </summary>
+  <h3>Intro</h3>
+<p>As a 3rd year student I'm facing the much dreaded prospect ( ;) ) of the team engineering project to be completed during the last two semesters. We decided to forgo setting up the project-related Slack instance (free and quick, but a 10k message limit might not be enough, plus with the recent Slack outages...sad!)</p>
+<p>I actually spent several afternoons in September setting up two alternatives: RocketChat and Mattermost. While using them with Docker is pretty straightforward (even if the Docker docs for Rocketchat are a bit outdated, using --link and stuff) but what really ground my gears was forwarding the ports and making it all work over https. After much effort I ended up with a setup that worked but I wasn't happy with it so I revisited it a few weeks later (under the guise of needing to migrate the infrastructure from my personal VPS to a dedicated one, obviously!)</p>
+<p><em>I came looking for copper and I found gold</em>, as they say. So without further ado, let me present you with a checklist.</p>
+<p>Note that this is not a Docker tutorial, I'm assuming you're familiar with Docker, Docker-Compose, concepts such as Docker networks, and the basics of Linux.</p>
+<h3>Steps</h3>
+<h4>Step 1: Get your machine and a domain</h4>
+<p>I used Digital Ocean to get a $5 droplet with CentOS. And you can get the domain from any vendor, as long as they let you manipulate your A records freely (will be necessary to point your domain to the server IP).</p>
+<h4>Step 2: Set up and secure your machine</h4>
+<p>Digital Ocean has <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-centos-7">a great tutorial on just that</a>.</p>
+<h4>Step 3: Install Docker on your machine</h4>
+<p>Again, <a href="https://docs.docker.com/install/linux/docker-ce/centos/">there's a doc for that</a>.</p>
+<h4>Step 4: Set up the nginx network</h4>
+<p>Create a dedicated directory (I'm gonna refer to it from now on as <code>nginx-proxy-dir</code>) and within it, create the following <code>docker-compose.yml</code> file:</p>
+<div class="highlight"><pre><span></span>version: &#39;3&#39;
+
+services:
+  nginx:
+    image: nginx:1.13.1
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - &quot;80:80&quot;
+      - &quot;443:443&quot;
+    volumes:
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs
+    labels:
+      - &quot;com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true&quot;
+
+  dockergen:
+    image: jwilder/docker-gen:0.7.3
+    container_name: nginx-proxy-gen
+    restart: always
+    depends_on:
+      - nginx
+    command: -notify-sighup nginx-proxy -watch -wait 5s:30s /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
+    volumes:
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: nginx-proxy-le
+    restart: always
+    depends_on:
+      - nginx
+      - dockergen
+    environment:
+      NGINX_PROXY_CONTAINER: nginx-proxy
+      NGINX_DOCKER_GEN_CONTAINER: nginx-proxy-gen
+    volumes:
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+volumes:
+  conf:
+  vhost:
+  html:
+  certs:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
+</pre></div>
+
+
+<p>Now run</p>
+<div class="highlight"><pre><span></span><span class="gp">you@vps:nginx-proxy-dir $</span> docker network create nginx-proxy
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="gp">you@vps:nginx-proxy-dir $</span> docker-compose up -d
+</pre></div>
+
+
+<p>to create a docker network called nginx-proxy and pull the required images from the Docker Hub, connecting them via the <code>nginx-proxy</code> network.</p>
+<p>A quick <code>docker ps</code> should confirm that your containers are up and running.</p>
+<p>This is a good moment to take a snapshot of your configuration -- you can use this as a blueprint for setting up any https services in the future.</p>
+<h4>Step 5: Set up Rocketchat and add it to the network</h4>
+<p>To set up Rocketchat, we need to add a MongoDB db to it (to store our data) and connect it to the <code>nginx-proxy</code> network so the certbot can obtain the SSL certificate for it.</p>
+<p>In another directory, <code>rocketchat-nginx-dir</code>, create a following <code>docker-compose.yml</code>:</p>
+<div class="highlight"><pre><span></span>version: &#39;3&#39;
+
+services:
+  rocketchat:
+    image: rocketchat/rocket.chat:latest
+    restart: unless-stopped
+    volumes:
+      - ./uploads:/app/uploads
+    environment:
+      MONGO_URL: mongodb://mongo:27017/rocketchat
+      ROOT_URL: http://yourdomain.com
+      Accounts_UseDNsDomainCheck: &quot;false&quot;
+      VIRTUAL_HOST: yourdomain.com
+      LETSENCRYPT_HOST: yourdomain.com
+      LETSENCRYPT_EMAIL: youremail@yourdomain.com
+    depends_on:
+      - mongo
+    ports:
+      - 3000:3000
+
+  mongo:
+    image: mongo:3.2
+    restart: unless-stopped
+    volumes:
+     - ./data/db:/data/db
+     - ./data/dump:/dump
+    command: mongod --smallfiles --oplogSize 128 --replSet rs0
+
+  # this container&#39;s job is just run the command to initialize the replica set.
+  # it will run the command and remove himself (it will not stay running)
+  mongo-init-replica:
+    image: mongo:3.2
+    command: &#39;mongo mongo/rocketchat --eval &quot;rs.initiate({ _id: &#39;&#39;rs0&#39;&#39;, members: [ { _id: 0, host: &#39;&#39;localhost:27017&#39;&#39; } ]})&quot;&#39;
+    depends_on:
+      - mongo
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
+</pre></div>
+
+
+<p>Then again run</p>
+<div class="highlight"><pre><span></span><span class="gp">you@vps:rocketchat-nginx-dir $</span> docker-compose up -d
+</pre></div>
+
+
+<p>And voila! When your new container is connected to the nginx-proxy network, it takes its VIRTUAL_HOST, LETSENCRYPT_HOST &amp; LETSENCRYPT_EMAIL and makes a request to the certbot to obtain the SSL certificate for you. And it will keep renewing the domain for you so you don't have to worry about renewing the certificate every 90 days or so.</p>
+<h4>Step 6: Add A records to your domain</h4>
+<p>How this step looks largely depends on your domain service provider. What you essentially need to do is add an A record using the IP of your machine and the domain you set up in the docker-compose file.</p>
+<p>So for instance, for subdomain.domain.com the record will be</p>
+<div class="highlight"><pre><span></span><span class="n">SUBDOMAIN</span> <span class="n">IN</span> <span class="n">A</span> <span class="p">[</span><span class="n">IPv4</span> <span class="n">address</span><span class="p">]</span>
+</pre></div>
+
+
+<p>DNS propagation takes up to 24 hours but usually it's a matter of minutes. You can do this step before setting up the whole Docker infrastructure.</p>
+<h4>Step 7: Finish up Rocketchat setup and enjoy your own IM instance :)</h4>
+<p>When you first get to your newly created instance, you will be asked to create the admin account, as well as do some extra configuration. You can also set up an SMTP server (Docker-based, for instance ;)) like HogMail to set up email notifications, send invites, and more. This is however beyond the scope of this tutorial.</p>
+</article>
+
+      <footer class="column-right light">
+        <nav><a href="/">Home</a> - <a href="/about.html">About me</a> - <a href="/archives.html">Archives</a> - <a href="/categories.html">Categories</a> - <a href="/tags.html">Tags</a> - <a href="/rss.xml">RSS</a> - <a href="https://creativecommons.org/licenses/by/4.0/">License</a></nav>
+      </footer>
+  </main>
+</body>
+</html>
