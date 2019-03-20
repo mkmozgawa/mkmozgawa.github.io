@@ -8,7 +8,7 @@ Save_as: about.html
 
 This blog serves mostly as a reference guide for me; when I learn something new, I usually write it down in case I forget it. Sometimes some of that knowledge might end up here :)
 
-I work as a QA at [Cognifide](https://www.cognifide.com). My professional interests revolve mostly around software development and data analysis.
+I work as a QA at [Cognifide](https://www.cognifide.com). My professional interests revolve mostly around software development and data analysis. These days most of my learning time is devoted to NLP (everything in the still-existing gap between how computer science and linguistics look at human languages) and computer vision (especially text recognition).
 
 Others things I enjoy: linguistics, astrophysics, RPGs, well-made food, and dank memes. 
 
