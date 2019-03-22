@@ -16,7 +16,7 @@ body {
 
 h1, h2, h3, h4 {
   color: black;
-  font-weight: normal;
+  font-weight: 600;
   margin-bottom: 0;
   margin-top: 1.5em; }
 
@@ -207,3 +207,21 @@ h6:hover .headerlink {
 
 .rounded-img {
   border-radius: 5px; }
+
+/* fixes for jupyter notebook export */
+
+.rendered_html :link {
+  text-decoration: none !important;
+}
+
+.output_prompt, .input_prompt {
+  display: none;
+}
+
+.anchor-link {
+  display:none;
+}
+
+.border-box-sizing {
+  margin: -20px 0;
+}
