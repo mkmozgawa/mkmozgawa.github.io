@@ -9,7 +9,7 @@ body {
   line-height: 30px;
   margin: 0.8em 1em;
   display: flex;
-  max-width: 45em;
+  max-width: 80rem;
   flex-direction: row;
   align-content: stretch; }
 
