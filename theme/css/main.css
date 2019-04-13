@@ -108,6 +108,10 @@ article a:hover:after {
   }
 }
 
+summary {
+  max-width: 50rem;
+}
+
 pre {
   line-height: 1.3em;
   overflow: auto;
@@ -155,6 +159,10 @@ th {
   line-height: 18px;
   padding: 0.2em 0;
   list-style: none; }
+
+.article-list {
+  max-width: 50rem;
+}
 
 .article-list p {
   margin: 0; }
