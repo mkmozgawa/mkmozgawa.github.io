@@ -30,7 +30,7 @@ DEFAULT_PAGINATION = 10
 
 # Display the blog post date and summary on the index page
 
-HIDE_DATE = True
+HIDE_DATE = True 
 HIDE_SUMMARY = True
 
 # Uncomment following line if you want document-relative URLs when developing
