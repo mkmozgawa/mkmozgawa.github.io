@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Magda Mozgawa</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2019-04-14T00:00:00+02:00</updated><entry><title>Removing circles, lines, and other patterns with OpenCV and Python, part II</title><link href="/removing-circles-lines-patterns-part-2.html" rel="alternate"></link><published>2019-04-14T00:00:00+02:00</published><updated>2019-04-14T00:00:00+02:00</updated><author><name>MM</name></author><id>tag:,2019-04-14:removing-circles-lines-patterns-part-2.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Magda Mozgawa</title><link href="/" rel="alternate"></link><link href="/feeds/all-en.atom.xml" rel="self"></link><id>/</id><updated>2019-04-14T00:00:00+02:00</updated><entry><title>Removing circles, lines, and other patterns with OpenCV and Python, part II</title><link href="/removing-circles-lines-patterns-part-2.html" rel="alternate"></link><published>2019-04-14T00:00:00+02:00</published><updated>2019-04-14T00:00:00+02:00</updated><author><name>MM</name></author><id>tag:,2019-04-14:removing-circles-lines-patterns-part-2.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
