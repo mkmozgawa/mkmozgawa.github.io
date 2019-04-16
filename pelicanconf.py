@@ -16,11 +16,7 @@ DEFAULT_LANG = 'en'
 THEME = "/home/mkay313/Projects/magda_space/venv/lib/python3.7/site-packages/pelican/themes/pelican-left"
 
 # Feed generation is usually not desired when developing
-FEED_ALL_ATOM = None
-CATEGORY_FEED_ATOM = None
-TRANSLATION_FEED_ATOM = None
-AUTHOR_FEED_ATOM = None
-AUTHOR_FEED_RSS = None
+FEED_RSS = None
 
 # Social widget
 # SOCIAL = (('You can add links in your config file', '#'),
