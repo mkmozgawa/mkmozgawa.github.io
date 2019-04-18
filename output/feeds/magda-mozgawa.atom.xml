@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Magda Mozgawa</title><link href="/" rel="alternate"></link><link href="/feeds/magda-mozgawa.atom.xml" rel="self"></link><id>/</id><updated>2018-12-09T20:00:00+01:00</updated><entry><title>On saving time and money with /etc/hosts</title><link href="/DNS-hosts-savings.html" rel="alternate"></link><published>2018-12-09T20:00:00+01:00</published><updated>2018-12-09T20:00:00+01:00</updated><author><name>Magda Mozgawa</name></author><id>tag:,2018-12-09:DNS-hosts-savings.html</id><summary type="html">&lt;p&gt;Recently whenever I'm bored, tired and with just 20 minutes to spare (bored enough so I can't go to sleep early but too tired to do anything productive, and turning on the console for &lt;em&gt;just 20 minutes&lt;/em&gt; never works) I got onto the habit of browsing clothes, cosmetics, etc. Maybe I need to fill in some void, or maybe I've been succumbing again to the pressure of looking &lt;em&gt;presentable&lt;/em&gt; when going to the office (after several months of remote work spent in some jeans and nondescript t-shirts). Either way, there's clearly a pattern here.&lt;/p&gt;
+&lt;p&gt;So I gathered the websites I've been using too frequently for no good reason, and added them to &lt;code&gt;/etc/hosts&lt;/code&gt;. After a while, I decided to impose that ban on some other sites that seem to bring no value to me. Currently the selection is as follows:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# Block super stupid sites I don&amp;#39;t want to waste my time on
+0.0.0.0 www.reserved.com
+0.0.0.0 reserved.com
+0.0.0.0 www.housebrand.com
+0.0.0.0 housebrand.com
+0.0.0.0 www.massimodutti.com
+0.0.0.0 massimodutti.com
+0.0.0.0 www.cropp.com
+0.0.0.0 cropp.com
+0.0.0.0 www.wolczanka.pl
+0.0.0.0 wolczanka.pl
+
+0.0.0.0 twitter.com
+0.0.0.0 www.twitter.com
+0.0.0.0 instagram.com
+0.0.0.0 www.instagram.com
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I don't even have accounts on twitter and instagram anymore so why was I browsing them? Muscle memory, I think.&lt;/p&gt;
+&lt;p&gt;Remember to restart the browser (and flush the dns beforehand, preferably) after each change. On Ubuntu 18.04, it's possible to flush dns with &lt;code&gt;sudo systemd-resolve --flush-caches&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Now what will I do with all that extra time? Perhaps I should order more books :)&lt;/p&gt;</summary><category term="linux"></category><category term="lifehacks"></category></entry><entry><title>Setting up your own Rocketchat instance over https, and fast</title><link href="/self-hosting-chats-digital-ocean.html" rel="alternate"></link><published>2018-11-04T20:00:00+01:00</published><updated>2018-11-04T20:00:00+01:00</updated><author><name>Magda Mozgawa</name></author><id>tag:,2018-11-04:self-hosting-chats-digital-ocean.html</id><summary type="html">&lt;h3&gt;Intro&lt;/h3&gt;
+&lt;p&gt;As a 3rd year student I'm facing the much dreaded prospect ( ;) ) of the team engineering project to be completed during the last two semesters. We decided to forgo setting up the project-related Slack instance (free and quick, but a 10k message limit might not be enough, plus with the recent Slack outages...sad!)&lt;/p&gt;
+&lt;p&gt;I actually spent several afternoons in September setting up two alternatives: RocketChat and Mattermost. While using them with Docker is pretty straightforward (even if the Docker docs for Rocketchat are a bit outdated, using --link and stuff) but what really ground my gears was forwarding the ports and making it all work over https. After much effort I ended up with a setup that worked but I wasn't happy with it so I revisited it a few weeks later (under the guise of needing to migrate the infrastructure from my personal VPS to a dedicated one, obviously!)&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;I came looking for copper and I found gold&lt;/em&gt;, as they say. So without further ado, let me present you with a checklist.&lt;/p&gt;
+&lt;p&gt;Note that this is not a Docker tutorial, I'm assuming you're familiar with Docker, Docker-Compose, concepts such as Docker networks, and the basics of Linux.&lt;/p&gt;
+&lt;h3&gt;Steps&lt;/h3&gt;
+&lt;h4&gt;Step 1: Get your machine and a domain&lt;/h4&gt;
+&lt;p&gt;I used Digital Ocean to get a $5 droplet with CentOS. And you can get the domain from any vendor, as long as they let you manipulate your A records freely (will be necessary to point your domain to the server IP).&lt;/p&gt;
+&lt;h4&gt;Step 2: Set up and secure your machine&lt;/h4&gt;
+&lt;p&gt;Digital Ocean has &lt;a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-centos-7"&gt;a great tutorial on just that&lt;/a&gt;.&lt;/p&gt;
+&lt;h4&gt;Step 3: Install Docker on your machine&lt;/h4&gt;
+&lt;p&gt;Again, &lt;a href="https://docs.docker.com/install/linux/docker-ce/centos/"&gt;there's a doc for that&lt;/a&gt;.&lt;/p&gt;
+&lt;h4&gt;Step 4: Set up the nginx network&lt;/h4&gt;
+&lt;p&gt;Create a dedicated directory (I'm gonna refer to it from now on as &lt;code&gt;nginx-proxy-dir&lt;/code&gt;) and within it, create the following &lt;code&gt;docker-compose.yml&lt;/code&gt; file:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;version: &amp;#39;3&amp;#39;
+
+services:
+  nginx:
+    image: nginx:1.13.1
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - &amp;quot;80:80&amp;quot;
+      - &amp;quot;443:443&amp;quot;
+    volumes:
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs
+    labels:
+      - &amp;quot;com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true&amp;quot;
+
+  dockergen:
+    image: jwilder/docker-gen:0.7.3
+    container_name: nginx-proxy-gen
+    restart: always
+    depends_on:
+      - nginx
+    command: -notify-sighup nginx-proxy -watch -wait 5s:30s /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
+    volumes:
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: nginx-proxy-le
+    restart: always
+    depends_on:
+      - nginx
+      - dockergen
+    environment:
+      NGINX_PROXY_CONTAINER: nginx-proxy
+      NGINX_DOCKER_GEN_CONTAINER: nginx-proxy-gen
+    volumes:
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+volumes:
+  conf:
+  vhost:
+  html:
+  certs:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now run&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;you@vps:nginx-proxy-dir $&lt;/span&gt; docker network create nginx-proxy
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;you@vps:nginx-proxy-dir $&lt;/span&gt; docker-compose up -d
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;to create a docker network called nginx-proxy and pull the required images from the Docker Hub, connecting them via the &lt;code&gt;nginx-proxy&lt;/code&gt; network.&lt;/p&gt;
+&lt;p&gt;A quick &lt;code&gt;docker ps&lt;/code&gt; should confirm that your containers are up and running.&lt;/p&gt;
+&lt;p&gt;This is a good moment to take a snapshot of your configuration -- you can use this as a blueprint for setting up any https services in the future.&lt;/p&gt;
+&lt;h4&gt;Step 5: Set up Rocketchat and add it to the network&lt;/h4&gt;
+&lt;p&gt;To set up Rocketchat, we need to add a MongoDB db to it (to store our data) and connect it to the &lt;code&gt;nginx-proxy&lt;/code&gt; network so the certbot can obtain the SSL certificate for it.&lt;/p&gt;
+&lt;p&gt;In another directory, &lt;code&gt;rocketchat-nginx-dir&lt;/code&gt;, create a following &lt;code&gt;docker-compose.yml&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;version: &amp;#39;3&amp;#39;
+
+services:
+  rocketchat:
+    image: rocketchat/rocket.chat:latest
+    restart: unless-stopped
+    volumes:
+      - ./uploads:/app/uploads
+    environment:
+      MONGO_URL: mongodb://mongo:27017/rocketchat
+      ROOT_URL: http://yourdomain.com
+      Accounts_UseDNsDomainCheck: &amp;quot;false&amp;quot;
+      VIRTUAL_HOST: yourdomain.com
+      LETSENCRYPT_HOST: yourdomain.com
+      LETSENCRYPT_EMAIL: youremail@yourdomain.com
+    depends_on:
+      - mongo
+    ports:
+      - 3000:3000
+
+  mongo:
+    image: mongo:3.2
+    restart: unless-stopped
+    volumes:
+     - ./data/db:/data/db
+     - ./data/dump:/dump
+    command: mongod --smallfiles --oplogSize 128 --replSet rs0
+
+  # this container&amp;#39;s job is just run the command to initialize the replica set.
+  # it will run the command and remove himself (it will not stay running)
+  mongo-init-replica:
+    image: mongo:3.2
+    command: &amp;#39;mongo mongo/rocketchat --eval &amp;quot;rs.initiate({ _id: &amp;#39;&amp;#39;rs0&amp;#39;&amp;#39;, members: [ { _id: 0, host: &amp;#39;&amp;#39;localhost:27017&amp;#39;&amp;#39; } ]})&amp;quot;&amp;#39;
+    depends_on:
+      - mongo
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then again run&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;you@vps:rocketchat-nginx-dir $&lt;/span&gt; docker-compose up -d
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And voila! When your new container is connected to the nginx-proxy network, it takes its VIRTUAL_HOST, LETSENCRYPT_HOST &amp;amp; LETSENCRYPT_EMAIL and makes a request to the certbot to obtain the SSL certificate for you. And it will keep renewing the domain for you so you don't have to worry about renewing the certificate every 90 days or so.&lt;/p&gt;
+&lt;h4&gt;Step 6: Add A records to your domain&lt;/h4&gt;
+&lt;p&gt;How this step looks largely depends on your domain service provider. What you essentially need to do is add an A record using the IP of your machine and the domain you set up in the docker-compose file.&lt;/p&gt;
+&lt;p&gt;So for instance, for subdomain.domain.com the record will be&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;SUBDOMAIN&lt;/span&gt; &lt;span class="n"&gt;IN&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;IPv4&lt;/span&gt; &lt;span class="n"&gt;address&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;DNS propagation takes up to 24 hours but usually it's a matter of minutes. You can do this step before setting up the whole Docker infrastructure.&lt;/p&gt;
+&lt;h4&gt;Step 7: Finish up Rocketchat setup and enjoy your own IM instance :)&lt;/h4&gt;
+&lt;p&gt;When you first get to your newly created instance, you will be asked to create the admin account, as well as do some extra configuration. You can also set up an SMTP server (Docker-based, for instance ;)) like HogMail to set up email notifications, send invites, and more. This is however beyond the scope of this tutorial.&lt;/p&gt;</summary><category term="devops"></category><category term="docker"></category></entry><entry><title>Setting up shared folders in VirtualBox on Windows, or all the issues you can run into in a single afternoon</title><link href="/virtualbox-shared-folders.html" rel="alternate"></link><published>2018-09-30T20:00:00+02:00</published><updated>2018-09-30T20:00:00+02:00</updated><author><name>Magda Mozgawa</name></author><id>tag:,2018-09-30:virtualbox-shared-folders.html</id><summary type="html">&lt;h3&gt;A little background&lt;/h3&gt;
+&lt;p&gt;This year for Rails Girls Poznan we wanted to have VirtualBox-ready images that would (a) be lightweight enough (both size- and resources-wise) for non-developer computers, (b) be user-friendly (so if someone wanted to do something on their machine, they wouldn't feel completely lost, i.e. we needed an OS with a GUI), (c) most importantly, include the latest Ruby and Rails as well as other useful gimmicks (image magick etc), (d) support shared folders.&lt;/p&gt;
+&lt;p&gt;I went for &lt;a href="https://lubuntu.net/"&gt;Lubuntu&lt;/a&gt; which, if you're not at all familiar with the Linux underworld, is a flavour of Ubuntu (tells you a lot!) which is more lightweight e.g. due to its minimal desktop LXDE (fascinating, huh?). If you don't know Ubuntu, then let's say it's a Debian-based distribution (duh).&lt;/p&gt;
+&lt;p&gt;The point is, its hardware requirements are pretty low. The target ova image weighed around 2.5GB (to put it into some perspective, the Windows ova files are 3x - 4x times this size), required a single CPU core and 1024MB RAM, and was beautifully user-friendly (or at least as user-friendly as Linux systems may be).&lt;/p&gt;
+&lt;p&gt;There was, however, one issue: setting up the shared folders. What a friggin' pain in the ass. In the end it worked, mostly because I spent several hours on research because, at that point, I felt too personally invested in the project to export an image without the shared folders working.&lt;/p&gt;
+&lt;p&gt;To make like easier for anyone googling "How to make shared folders work in Virtualbox on Windows with a Linux guest?", I present a few links from around the internet. I mean, I don't see the point in writing a full-blown guide, because the parts are already there, but let's say I'm going to present to you the most unfortunate scenario possible, and may the odds be in your favour.&lt;/p&gt;
+&lt;h3&gt;Potential issues&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;I went with "Install the system" but I got an error with a meditating guy and something. What's wrong?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;A plethora of things might have gone awry, but if you have an average- or better performing computer, you shouldn't be running into &lt;a href="http://www.fixedbyvonnie.com/2014/09/heck-virtualbox-guru-meditation-error/#.W7Eb5xSxU5l"&gt;issues with memory size&lt;/a&gt;. There is, however, one pesky error that I wasted about 30 minutes on: my Thinkpad's default BIOS settings. Turns out I had virtualization turned off in my computer. When I finally discovered what was wrong that was a &lt;a href="https://support.lenovo.com/pl/en/solutions/ht500006"&gt;fairly easy fix&lt;/a&gt; (as long as you don't mention the fact that it's bloody hard to get into my Thinkpad's BIOS settings). Depending on your computer this might be an issue with yours as well. Just look in the logs (...\VirtualBox VMs\&lt;Your Box Name&gt;\Logs\VBox.log) and google (or duck duck go) it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Whenever I install rvm and restart the machine, rvm is gone. Why?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I strongly suggest using rbenv over rvm as shown in &lt;a href="https://gorails.com/setup/ubuntu/18.04"&gt;this tutorial&lt;/a&gt;. That's what I did, at least.&lt;/p&gt;
+&lt;p&gt;But if you really want that rvm, make sure &lt;a href="https://stackoverflow.com/questions/28224408/adding-rvm-to-path-ubuntu"&gt;you're including it in your PATH&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;So if I have an app running on the guest machine on localhost:3000 there, why can't I see it in the browser on the host machine.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Mainly because they are too separate machines ¯_(ツ)_/¯ _but don't worry, we can make do, and easily. What we need to figure out is the IP address of your guest machine and to do some port-mapping magic. By default, the IP of the host machine on VirtualBox is set to 10.0.2.15, but there's a slight change something is different on your host, so open up the terminal and type &lt;code&gt;ifconfig&lt;/code&gt;. (At that point, it may say sth like "I don't recognize this message, try downloading package nettoolssomething. Install the package and then retry with ifconfig.)
+It will probably give you more data than you need, but we're looking for the &lt;code&gt;inet&lt;/code&gt; value. Write it down. Next, turn off the machine, right-click it in VirtualBox, and choose Settings. Once you're there, choose Network, and inspect (most likely) Adapter 1, the one using NAT. Click Advanced.&lt;/p&gt;
+&lt;p&gt;The option "Port forwarding" is what you're interested in. Yours will at first be empty, but you can easily add new rules to make them look like this: &lt;a href="https://i.imgur.com/jTAsWH2.png"&gt;Port Forwarding Rules&lt;/a&gt; Once you've saved your changes, launched the machine back, and started your app, you can go to http://localhost:port on your host machine and it will show you the app running on the guest machine.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Can I ssh into that machine?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I thought you'd never ask! Yes you can, and it's really sick in Windows. Windows 10 apparently has ssh (haven't tested it out, though) but most Windows folk know Putty. It has a GUI which I won't go into the details of, however setting up VirtualBox to work with ssh on Windows is &lt;a href="https://unix.stackexchange.com/questions/145997/trying-to-ssh-to-local-vm-ubuntu-with-putty"&gt;pure devil's work&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Basically:
+1. Either change the adapter from NAT to host-only (meaning the guest machine won't have access to the Internet) or enable Adapter 2 and set it to host-only.
+2. Change the forwarding rules on the respective adapter to map your host's whatever port you want to use (I went for 3022) to the guest's port 22.
+3. Put that stuff into Putty and pray.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Fun fact: if you disable Adapter 2 without changing the option "host-only" to "not connected" and later try to import this image on VirtualBox for Linux, it won't work. You have to disconnect the adapter before disabling it. On Windows, however, it works fine. Hell!&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Can I have my shared folder now?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Yes, and no. If you have a nicely working Internet connection you download Guest Additions (the ones available in VirtualBox by default &lt;em&gt;do not&lt;/em&gt; work), like described &lt;a href="https://askubuntu.com/questions/22743/how-do-i-install-guest-additions-in-a-virtualbox-vm"&gt;here&lt;/a&gt;. However, if you (a) like living dangerously, (b) like weird hacks, (c) cannot be bothered to download Guest Additions you can winscp into your machine and copy the GuestAdditionsISO from the VirtualBox directory (where you installed it) onto the machine and then mount it there.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;You've run into all these issues while setting up shared folders?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Yes, and probably even more I don't even remember. VirtualBox is glorious (╯°□°）╯︵ ┻━┻&lt;/p&gt;</summary><category term="devops"></category><category term="virtualbox"></category></entry></feed>
