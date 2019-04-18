@@ -1,5 +1,2615 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Magda Mozgawa</title><link href="/" rel="alternate"></link><link href="/feeds/mm.atom.xml" rel="self"></link><id>/</id><updated>2019-04-14T00:00:00+02:00</updated><entry><title>Removing circles, lines, and other patterns with OpenCV and Python, part II</title><link href="/removing-circles-lines-patterns-part-2.html" rel="alternate"></link><published>2019-04-14T00:00:00+02:00</published><updated>2019-04-14T00:00:00+02:00</updated><author><name>MM</name></author><id>tag:,2019-04-14:removing-circles-lines-patterns-part-2.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Magda Mozgawa</title><link href="/" rel="alternate"></link><link href="/feeds/mm.atom.xml" rel="self"></link><id>/</id><updated>2019-04-18T00:00:00+02:00</updated><entry><title>Readability, revisited</title><link href="/readability-revisited.html" rel="alternate"></link><published>2019-04-18T00:00:00+02:00</published><updated>2019-04-18T00:00:00+02:00</updated><author><name>MM</name></author><id>tag:,2019-04-18:readability-revisited.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+*
+* IPython notebook
+*
+*/
+/* CSS font colors for translated ANSI escape sequences */
+/* The color values are a mix of
+   http://www.xcolors.net/dl/baskerville-ivorylight and
+   http://www.xcolors.net/dl/euphrasia */
+.ansi-black-fg {
+  color: #3E424D;
+}
+.ansi-black-bg {
+  background-color: #3E424D;
+}
+.ansi-black-intense-fg {
+  color: #282C36;
+}
+.ansi-black-intense-bg {
+  background-color: #282C36;
+}
+.ansi-red-fg {
+  color: #E75C58;
+}
+.ansi-red-bg {
+  background-color: #E75C58;
+}
+.ansi-red-intense-fg {
+  color: #B22B31;
+}
+.ansi-red-intense-bg {
+  background-color: #B22B31;
+}
+.ansi-green-fg {
+  color: #00A250;
+}
+.ansi-green-bg {
+  background-color: #00A250;
+}
+.ansi-green-intense-fg {
+  color: #007427;
+}
+.ansi-green-intense-bg {
+  background-color: #007427;
+}
+.ansi-yellow-fg {
+  color: #DDB62B;
+}
+.ansi-yellow-bg {
+  background-color: #DDB62B;
+}
+.ansi-yellow-intense-fg {
+  color: #B27D12;
+}
+.ansi-yellow-intense-bg {
+  background-color: #B27D12;
+}
+.ansi-blue-fg {
+  color: #208FFB;
+}
+.ansi-blue-bg {
+  background-color: #208FFB;
+}
+.ansi-blue-intense-fg {
+  color: #0065CA;
+}
+.ansi-blue-intense-bg {
+  background-color: #0065CA;
+}
+.ansi-magenta-fg {
+  color: #D160C4;
+}
+.ansi-magenta-bg {
+  background-color: #D160C4;
+}
+.ansi-magenta-intense-fg {
+  color: #A03196;
+}
+.ansi-magenta-intense-bg {
+  background-color: #A03196;
+}
+.ansi-cyan-fg {
+  color: #60C6C8;
+}
+.ansi-cyan-bg {
+  background-color: #60C6C8;
+}
+.ansi-cyan-intense-fg {
+  color: #258F8F;
+}
+.ansi-cyan-intense-bg {
+  background-color: #258F8F;
+}
+.ansi-white-fg {
+  color: #C5C1B4;
+}
+.ansi-white-bg {
+  background-color: #C5C1B4;
+}
+.ansi-white-intense-fg {
+  color: #A1A6B2;
+}
+.ansi-white-intense-bg {
+  background-color: #A1A6B2;
+}
+.ansi-default-inverse-fg {
+  color: #FFFFFF;
+}
+.ansi-default-inverse-bg {
+  background-color: #000000;
+}
+.ansi-bold {
+  font-weight: bold;
+}
+.ansi-underline {
+  text-decoration: underline;
+}
+/* The following styles are deprecated an will be removed in a future version */
+.ansibold {
+  font-weight: bold;
+}
+.ansi-inverse {
+  outline: 0.5px dotted;
+}
+/* use dark versions for foreground, to improve visibility */
+.ansiblack {
+  color: black;
+}
+.ansired {
+  color: darkred;
+}
+.ansigreen {
+  color: darkgreen;
+}
+.ansiyellow {
+  color: #c4a000;
+}
+.ansiblue {
+  color: darkblue;
+}
+.ansipurple {
+  color: darkviolet;
+}
+.ansicyan {
+  color: steelblue;
+}
+.ansigray {
+  color: gray;
+}
+/* and light for background, for the same reason */
+.ansibgblack {
+  background-color: black;
+}
+.ansibgred {
+  background-color: red;
+}
+.ansibggreen {
+  background-color: green;
+}
+.ansibgyellow {
+  background-color: yellow;
+}
+.ansibgblue {
+  background-color: blue;
+}
+.ansibgpurple {
+  background-color: magenta;
+}
+.ansibgcyan {
+  background-color: cyan;
+}
+.ansibggray {
+  background-color: gray;
+}
+div.cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  width: 100%;
+  padding: 5px;
+  /* This acts as a spacer between cells, that is outside the border */
+  margin: 0px;
+  outline: none;
+  position: relative;
+  overflow: visible;
+}
+div.cell:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: transparent;
+}
+div.cell.jupyter-soft-selected {
+  border-left-color: #E3F2FD;
+  border-left-width: 1px;
+  padding-left: 5px;
+  border-right-color: #E3F2FD;
+  border-right-width: 1px;
+  background: #E3F2FD;
+}
+@media print {
+  div.cell.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected,
+div.cell.selected.jupyter-soft-selected {
+  border-color: #ababab;
+}
+div.cell.selected:before,
+div.cell.selected.jupyter-soft-selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #42A5F5;
+}
+@media print {
+  div.cell.selected,
+  div.cell.selected.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+.edit_mode div.cell.selected {
+  border-color: #66BB6A;
+}
+.edit_mode div.cell.selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #66BB6A;
+}
+@media print {
+  .edit_mode div.cell.selected {
+    border-color: transparent;
+  }
+}
+.prompt {
+  /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
+  min-width: 14ex;
+  /* This padding is tuned to match the padding on the CodeMirror editor. */
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace;
+  text-align: right;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+  /* Don't highlight prompt number selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Use default cursor */
+  cursor: default;
+}
+@media (max-width: 540px) {
+  .prompt {
+    text-align: left;
+  }
+}
+div.inner_cell {
+  min-width: 0;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_area {
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  background: #f7f7f7;
+  line-height: 1.21429em;
+}
+/* This is needed so that empty prompt areas can collapse to zero height when there
+   is no content in the output_subarea and the prompt. The main purpose of this is
+   to make sure that empty JavaScript output_subareas have no height. */
+div.prompt:empty {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+div.unrecognized_cell {
+  padding: 5px 5px 5px 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.unrecognized_cell .inner_cell {
+  border-radius: 2px;
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+  border: 1px solid #cfcfcf;
+  background: #eaeaea;
+}
+div.unrecognized_cell .inner_cell a {
+  color: inherit;
+  text-decoration: none;
+}
+div.unrecognized_cell .inner_cell a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+@media (max-width: 540px) {
+  div.unrecognized_cell &gt; div.prompt {
+    display: none;
+  }
+}
+div.code_cell {
+  /* avoid page breaking on code cells when printing */
+}
+@media print {
+  div.code_cell {
+    page-break-inside: avoid;
+  }
+}
+/* any special styling for code cells that are currently running goes here */
+div.input {
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.input {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_prompt {
+  color: #303F9F;
+  border-top: 1px solid transparent;
+}
+div.input_area &gt; div.highlight {
+  margin: 0.4em;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+div.input_area &gt; div.highlight &gt; pre {
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+/* The following gets added to the &lt;head&gt; if it is detected that the user has a
+ * monospace font with inconsistent normal/bold/italic height.  See
+ * notebookmain.js.  Such fonts will have keywords vertically offset with
+ * respect to the rest of the text.  The user should select a better font.
+ * See: https://github.com/ipython/ipython/issues/1503
+ *
+ * .CodeMirror span {
+ *      vertical-align: bottom;
+ * }
+ */
+.CodeMirror {
+  line-height: 1.21429em;
+  /* Changed from 1em to our global default */
+  font-size: 14px;
+  height: auto;
+  /* Changed to auto to autogrow */
+  background: none;
+  /* Changed from white to allow our bg to show through */
+}
+.CodeMirror-scroll {
+  /*  The CodeMirror docs are a bit fuzzy on if overflow-y should be hidden or visible.*/
+  /*  We have found that if it is visible, vertical scrollbars appear with font size changes.*/
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-lines {
+  /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
+  /* we have set a different line-height and want this to scale with that. */
+  /* Note that this should set vertical padding only, since CodeMirror assumes
+       that horizontal padding will be set on CodeMirror pre */
+  padding: 0.4em 0;
+}
+.CodeMirror-linenumber {
+  padding: 0 8px 0 4px;
+}
+.CodeMirror-gutters {
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.CodeMirror pre {
+  /* In CM3 this went to 4px from 0 in CM2. This sets horizontal padding only,
+    use .CodeMirror-lines for vertical */
+  padding: 0 0.4em;
+  border: 0;
+  border-radius: 0;
+}
+.CodeMirror-cursor {
+  border-left: 1.4px solid black;
+}
+@media screen and (min-width: 2138px) and (max-width: 4319px) {
+  .CodeMirror-cursor {
+    border-left: 2px solid black;
+  }
+}
+@media screen and (min-width: 4320px) {
+  .CodeMirror-cursor {
+    border-left: 4px solid black;
+  }
+}
+/*
+
+Original style from softwaremaniacs.org (c) Ivan Sagalaev &lt;Maniac@SoftwareManiacs.Org&gt;
+Adapted from GitHub theme
+
+*/
+.highlight-base {
+  color: #000;
+}
+.highlight-variable {
+  color: #000;
+}
+.highlight-variable-2 {
+  color: #1a1a1a;
+}
+.highlight-variable-3 {
+  color: #333333;
+}
+.highlight-string {
+  color: #BA2121;
+}
+.highlight-comment {
+  color: #408080;
+  font-style: italic;
+}
+.highlight-number {
+  color: #080;
+}
+.highlight-atom {
+  color: #88F;
+}
+.highlight-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.highlight-builtin {
+  color: #008000;
+}
+.highlight-error {
+  color: #f00;
+}
+.highlight-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.highlight-meta {
+  color: #AA22FF;
+}
+/* previously not defined, copying from default codemirror */
+.highlight-def {
+  color: #00f;
+}
+.highlight-string-2 {
+  color: #f50;
+}
+.highlight-qualifier {
+  color: #555;
+}
+.highlight-bracket {
+  color: #997;
+}
+.highlight-tag {
+  color: #170;
+}
+.highlight-attribute {
+  color: #00c;
+}
+.highlight-header {
+  color: blue;
+}
+.highlight-quote {
+  color: #090;
+}
+.highlight-link {
+  color: #00c;
+}
+/* apply the same style to codemirror */
+.cm-s-ipython span.cm-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-atom {
+  color: #88F;
+}
+.cm-s-ipython span.cm-number {
+  color: #080;
+}
+.cm-s-ipython span.cm-def {
+  color: #00f;
+}
+.cm-s-ipython span.cm-variable {
+  color: #000;
+}
+.cm-s-ipython span.cm-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-variable-2 {
+  color: #1a1a1a;
+}
+.cm-s-ipython span.cm-variable-3 {
+  color: #333333;
+}
+.cm-s-ipython span.cm-comment {
+  color: #408080;
+  font-style: italic;
+}
+.cm-s-ipython span.cm-string {
+  color: #BA2121;
+}
+.cm-s-ipython span.cm-string-2 {
+  color: #f50;
+}
+.cm-s-ipython span.cm-meta {
+  color: #AA22FF;
+}
+.cm-s-ipython span.cm-qualifier {
+  color: #555;
+}
+.cm-s-ipython span.cm-builtin {
+  color: #008000;
+}
+.cm-s-ipython span.cm-bracket {
+  color: #997;
+}
+.cm-s-ipython span.cm-tag {
+  color: #170;
+}
+.cm-s-ipython span.cm-attribute {
+  color: #00c;
+}
+.cm-s-ipython span.cm-header {
+  color: blue;
+}
+.cm-s-ipython span.cm-quote {
+  color: #090;
+}
+.cm-s-ipython span.cm-link {
+  color: #00c;
+}
+.cm-s-ipython span.cm-error {
+  color: #f00;
+}
+.cm-s-ipython span.cm-tab {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
+  background-position: right;
+  background-repeat: no-repeat;
+}
+div.output_wrapper {
+  /* this position must be relative to enable descendents to be absolute within it */
+  position: relative;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 1;
+}
+/* class for the output area when it should be height-limited */
+div.output_scroll {
+  /* ideally, this would be max-height, but FF barfs all over that */
+  height: 24em;
+  /* FF needs this *and the wrapper* to specify full width, or it will shrinkwrap */
+  width: 100%;
+  overflow: auto;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  display: block;
+}
+/* output div while it is collapsed */
+div.output_collapsed {
+  margin: 0px;
+  padding: 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+div.out_prompt_overlay {
+  height: 100%;
+  padding: 0px 0.4em;
+  position: absolute;
+  border-radius: 2px;
+}
+div.out_prompt_overlay:hover {
+  /* use inner shadow to get border that is computed the same on WebKit/FF */
+  -webkit-box-shadow: inset 0 0 1px #000;
+  box-shadow: inset 0 0 1px #000;
+  background: rgba(240, 240, 240, 0.5);
+}
+div.output_prompt {
+  color: #D84315;
+}
+/* This class is the outer container of all output sections. */
+div.output_area {
+  padding: 0px;
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.output_area .MathJax_Display {
+  text-align: left !important;
+}
+div.output_area 
+div.output_area 
+div.output_area img,
+div.output_area svg {
+  max-width: 100%;
+  height: auto;
+}
+div.output_area img.unconfined,
+div.output_area svg.unconfined {
+  max-width: none;
+}
+div.output_area .mglyph &gt; img {
+  max-width: none;
+}
+/* This is needed to protect the pre formating from global settings such
+   as that of bootstrap */
+.output {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.output_area {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+div.output_area pre {
+  margin: 0;
+  padding: 1px 0 1px 0;
+  border: 0;
+  vertical-align: baseline;
+  color: black;
+  background-color: transparent;
+  border-radius: 0;
+}
+/* This class is for the output subarea inside the output_area and after
+   the prompt div. */
+div.output_subarea {
+  overflow-x: auto;
+  padding: 0.4em;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+  max-width: calc(100% - 14ex);
+}
+div.output_scroll div.output_subarea {
+  overflow-x: visible;
+}
+/* The rest of the output_* classes are for special styling of the different
+   output types */
+/* all text output has this class: */
+div.output_text {
+  text-align: left;
+  color: #000;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+}
+/* stdout/stderr are 'text' as well as 'stream', but execute_result/error are *not* streams */
+div.output_stderr {
+  background: #fdd;
+  /* very light red background for stderr */
+}
+div.output_latex {
+  text-align: left;
+}
+/* Empty output_javascript divs should have no height */
+div.output_javascript:empty {
+  padding: 0;
+}
+.js-error {
+  color: darkred;
+}
+/* raw_input styles */
+div.raw_input_container {
+  line-height: 1.21429em;
+  padding-top: 5px;
+}
+pre.raw_input_prompt {
+  /* nothing needed here. */
+}
+input.raw_input {
+  font-family: monospace;
+  font-size: inherit;
+  color: inherit;
+  width: auto;
+  /* make sure input baseline aligns with prompt */
+  vertical-align: baseline;
+  /* padding + margin = 0.5em between prompt and cursor */
+  padding: 0em 0.25em;
+  margin: 0em 0.25em;
+}
+input.raw_input:focus {
+  box-shadow: none;
+}
+p.p-space {
+  margin-bottom: 10px;
+}
+div.output_unrecognized {
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+}
+div.output_unrecognized a {
+  color: inherit;
+  text-decoration: none;
+}
+div.output_unrecognized a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.rendered_html {
+  color: #000;
+  /* any extras will just be numbers: */
+}
+
+
+
+.rendered_html :link {
+  text-decoration: underline;
+}
+.rendered_html :visited {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+.rendered_html h1:first-child {
+  margin-top: 0.538em;
+}
+.rendered_html h2:first-child {
+  margin-top: 0.636em;
+}
+.rendered_html h3:first-child {
+  margin-top: 0.777em;
+}
+.rendered_html h4:first-child {
+  margin-top: 1em;
+}
+.rendered_html h5:first-child {
+  margin-top: 1em;
+}
+.rendered_html h6:first-child {
+  margin-top: 1em;
+}
+.rendered_html ul:not(.list-inline),
+.rendered_html ol:not(.list-inline) {
+  padding-left: 2em;
+}
+
+
+
+
+
+
+
+
+.rendered_html * + ul {
+  margin-top: 1em;
+}
+.rendered_html * + ol {
+  margin-top: 1em;
+}
+
+
+
+
+
+.rendered_html pre,
+
+
+
+
+.rendered_html tr,
+.rendered_html th,
+
+
+.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+.rendered_html * + table {
+  margin-top: 1em;
+}
+
+.rendered_html * + p {
+  margin-top: 1em;
+}
+
+.rendered_html * + img {
+  margin-top: 1em;
+}
+.rendered_html img,
+
+.rendered_html img.unconfined,
+
+
+.rendered_html * + .alert {
+  margin-top: 1em;
+}
+[dir="rtl"] 
+div.text_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.text_cell &gt; div.prompt {
+    display: none;
+  }
+}
+div.text_cell_render {
+  /*font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;*/
+  outline: none;
+  resize: none;
+  width: inherit;
+  border-style: none;
+  padding: 0.5em 0.5em 0.5em 0.4em;
+  color: #000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a.anchor-link:link {
+  text-decoration: none;
+  padding: 0px 20px;
+  visibility: hidden;
+}
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+h4:hover .anchor-link,
+h5:hover .anchor-link,
+h6:hover .anchor-link {
+  visibility: visible;
+}
+.text_cell.rendered .input_area {
+  display: none;
+}
+.text_cell.rendered 
+.text_cell.rendered .rendered_html tr,
+.text_cell.rendered .rendered_html th,
+.text_cell.rendered 
+.text_cell.unrendered .text_cell_render {
+  display: none;
+}
+.text_cell .dropzone .input_area {
+  border: 2px dashed #bababa;
+  margin: -1px;
+}
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-header-6 {
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.cm-header-1 {
+  font-size: 185.7%;
+}
+.cm-header-2 {
+  font-size: 157.1%;
+}
+.cm-header-3 {
+  font-size: 128.6%;
+}
+.cm-header-4 {
+  font-size: 110%;
+}
+.cm-header-5 {
+  font-size: 100%;
+  font-style: italic;
+}
+.cm-header-6 {
+  font-size: 100%;
+  font-style: italic;
+}
+&lt;/style&gt;
+&lt;style type="text/css"&gt;.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */&lt;/style&gt;
+&lt;style type="text/css"&gt;
+/* Temporary definitions which will become obsolete with Notebook release 5.0 */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+&lt;/style&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;A long, long time ago (to be exact -- in February 2018) I prepared a Shiny app to explore the books of the most popular &lt;a href="https://www.gutenberg.org/catalog/"&gt;Project Gutenberg&lt;/a&gt; authors. The original app is still available (and bugged) &lt;a href="https://mzgw.shinyapps.io/book-recommendation/"&gt;via ShinyApps&lt;/a&gt;, and was inspired by &lt;a href="https://blog.vocapouch.com/do-20-pages-of-a-book-gives-you-90-of-its-words-795a405afe70"&gt;this article&lt;/a&gt;. I first decided to port the unique words plot from Python to R, then utilised some &lt;a href="https://github.com/mkmozgawa/flescher-readability"&gt;readability scripts&lt;/a&gt; I'd written earlier, and all of a sudden it was all nice and Shiny. (ba-dum-tss) Also, it helped that I needed to create some kind of a project for my uni labs.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;I recently digged back into the project due to my incessant interest in the concepts of readability tests and other measurable text features. While the more complex work is still underway (I need some data from humans, never easy), I thought the app itself could use some improvements, and at least one of them could potentially be done without touching the existing codebase. Then there's the issue with how to calculate the readability score -- and stay sane.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h3 id="Dealing-with-the-books-galore"&gt;Dealing with the books galore&lt;a class="anchor-link" href="#Dealing-with-the-books-galore"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;If you consider the "Books on this level" plot, there's way too much data if you go for the B1 level:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;img src="images/plot_before.png" alt="alt text" title="Books on this level plot -- before removing some items"&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;This is due to the fact that there are way more books on the A2 - B2 levels than on any else or, putting it in the statistical lingo, the flesch.value vector data is skewed (left-skewed if you look at the flesch.value, and right-skewed if you consider the level). This becomes appearent when you group all the books by the level and count your chickens:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[101]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pandas&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;pd&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;seaborn&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;sns&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;plt&lt;/span&gt;
+&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;matplotlib&lt;/span&gt; inline
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[102]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;book_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read_csv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;book_list.csv&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sep&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;,&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;header&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[103]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;book_list&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt output_prompt"&gt;Out[103]:&lt;/div&gt;
+
+
+
+&lt;div class="output_html rendered_html output_subarea output_execute_result"&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+&lt;/style&gt;
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;gutenberg.id&lt;/th&gt;
+      &lt;th&gt;title&lt;/th&gt;
+      &lt;th&gt;author&lt;/th&gt;
+      &lt;th&gt;gutenberg.author.id&lt;/th&gt;
+      &lt;th&gt;gutenberg.bookshelf&lt;/th&gt;
+      &lt;th&gt;flesch.value&lt;/th&gt;
+      &lt;th&gt;flesch.grade&lt;/th&gt;
+      &lt;th&gt;level&lt;/th&gt;
+      &lt;th&gt;average.goodreads.rating&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;17621&lt;/td&gt;
+      &lt;td&gt;One Day More: A Play In One Act&lt;/td&gt;
+      &lt;td&gt;Conrad, Joseph&lt;/td&gt;
+      &lt;td&gt;125&lt;/td&gt;
+      &lt;td&gt;One Act Plays&lt;/td&gt;
+      &lt;td&gt;90.418363&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+      &lt;td&gt;A1&lt;/td&gt;
+      &lt;td&gt;2.90&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;28554&lt;/td&gt;
+      &lt;td&gt;Beyond Lies the Wub&lt;/td&gt;
+      &lt;td&gt;Dick, Philip K.&lt;/td&gt;
+      &lt;td&gt;33399&lt;/td&gt;
+      &lt;td&gt;Science Fiction&lt;/td&gt;
+      &lt;td&gt;90.431191&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+      &lt;td&gt;A1&lt;/td&gt;
+      &lt;td&gt;3.81&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;28644&lt;/td&gt;
+      &lt;td&gt;Beyond the Door&lt;/td&gt;
+      &lt;td&gt;Dick, Philip K.&lt;/td&gt;
+      &lt;td&gt;33399&lt;/td&gt;
+      &lt;td&gt;Science Fiction&lt;/td&gt;
+      &lt;td&gt;93.401235&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+      &lt;td&gt;A1&lt;/td&gt;
+      &lt;td&gt;3.06&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;32032&lt;/td&gt;
+      &lt;td&gt;Second Variety&lt;/td&gt;
+      &lt;td&gt;Dick, Philip K.&lt;/td&gt;
+      &lt;td&gt;33399&lt;/td&gt;
+      &lt;td&gt;Science Fiction&lt;/td&gt;
+      &lt;td&gt;91.175281&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+      &lt;td&gt;A1&lt;/td&gt;
+      &lt;td&gt;3.96&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;41562&lt;/td&gt;
+      &lt;td&gt;The Hanging Stranger&lt;/td&gt;
+      &lt;td&gt;Dick, Philip K.&lt;/td&gt;
+      &lt;td&gt;33399&lt;/td&gt;
+      &lt;td&gt;Science Fiction&lt;/td&gt;
+      &lt;td&gt;91.919921&lt;/td&gt;
+      &lt;td&gt;5&lt;/td&gt;
+      &lt;td&gt;A1&lt;/td&gt;
+      &lt;td&gt;3.90&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[104]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;book_list&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;groupby&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;level&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt output_prompt"&gt;Out[104]:&lt;/div&gt;
+
+
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;level
+A1     14
+A2    155
+B1    187
+B2     90
+C1     22
+C2     10
+dtype: int64&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Another thing becomes apparent when you plot the flesch.value (&lt;a href="click for more info on that"&gt;https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests&lt;/a&gt;) against the average.goodreads.rating (pulled from the &lt;a href="https://www.goodreads.com/"&gt;Goodreads&lt;/a&gt; (API)[&lt;a href="https://www.goodreads.com/api"&gt;https://www.goodreads.com/api&lt;/a&gt;]) is that it's also left-skewed (right-skewed on the plot below because of the nature of the Y axis).&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[105]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;sns&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;jointplot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;flesch.value&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;average.goodreads.rating&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;book_list&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;kind&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;hex&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt output_prompt"&gt;Out[105]:&lt;/div&gt;
+
+
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;&amp;lt;seaborn.axisgrid.JointGrid at 0x7fd0b6787860&amp;gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class="output_png output_subarea "&gt;
+&lt;img src="data:image/png;base64,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
+"
+&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;What I get from this is that, essentially, the rating may be a useless metric ("every product and business on earth is assigned a numerical rating from 1 to 5 on some site, but everything ends up at 3.7 +/- 0.1, so it means nothing, but we just keep doing it because our first goal is quantification as such, accuracy and precision be damned" to quote &lt;a href="https://twitter.com/garybernhardt/status/1117664396757520384"&gt;Gary Bernhardt&lt;/a&gt;). But I promised to myself not to dwell on the past and so I'm not changing the logic of the app, and I shall just pick fewer books for each grade level to make it look nicer on the actual plot. Also, these are the cream of the crop volumes, so maybe they're just really good on average? Or maybe people are afraid to rate them too low?&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;But how do I pick only some of the books in such a way that I get a sample of each readability level (and Goodreads rating)? Given the plot above, there are some really hot regions (think 3.7 stars, 78 on the Flesch-Kincaid scale) but the rest could potentially stay as it is. As this is more for the demonstration purposes and not some actual sample-sized statistical research, the simplest way would be to first bucket the books in an even more fine manner (90-88 flesch.value, 88-86 flesch.value, and so on) and then from each such bucket, if there is more than one book, choose on the basis of their Goodreads rating (how varied it is).&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[106]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;bins_flesch&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;linspace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;101&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;cuts_flesch&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cut&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;book_list&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;flesch.value&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;bins_flesch&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;bins_rating&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;linspace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;cuts_rating&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cut&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;book_list&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;average.goodreads.rating&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;bins_rating&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;groups&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;book_list&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;groupby&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;by&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;cuts_flesch&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;cuts_rating&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[107]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;groups&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt output_prompt"&gt;Out[107]:&lt;/div&gt;
+
+
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;flesch.value  average.goodreads.rating
+(26.0, 27.0]  (3.0, 3.5]                  1
+(43.0, 44.0]  (3.5, 4.0]                  2
+(44.0, 45.0]  (3.5, 4.0]                  1
+(46.0, 47.0]  (3.5, 4.0]                  1
+(47.0, 48.0]  (2.5, 3.0]                  1
+dtype: int64&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Let's assume that for each of these buckets, the goal would be to have a single element in it, and this element would be in the middle of that particular bucket. Note that this is going to be a pretty small data frame (I'm starting with &amp;lt;500 records) so performance isn't an issue here. Normally you'd want to pre-allocate indices, and stuff like that.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[108]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;res_df&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DataFrame&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;columns&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;book_list&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;columns&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[109]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# https://stackoverflow.com/questions/2566412/find-nearest-value-in-numpy-array&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;find_nearest&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;array&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;asarray&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;idx&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;abs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;argmin&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;idx&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[110]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;els&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;item&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;groups&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;groups&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get_group&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;g_mean&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;average.goodreads.rating&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mean&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;g_mean_choice&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;find_nearest&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;average.goodreads.rating&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;g_mean&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;g_choice&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;average.goodreads.rating&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;g_mean_choice&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;res_df&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;g_choice&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="n"&gt;res_df&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;concat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[111]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;res_df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt output_prompt"&gt;Out[111]:&lt;/div&gt;
+
+
+
+&lt;div class="output_html rendered_html output_subarea output_execute_result"&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+&lt;/style&gt;
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;gutenberg.id&lt;/th&gt;
+      &lt;th&gt;title&lt;/th&gt;
+      &lt;th&gt;author&lt;/th&gt;
+      &lt;th&gt;gutenberg.author.id&lt;/th&gt;
+      &lt;th&gt;gutenberg.bookshelf&lt;/th&gt;
+      &lt;th&gt;flesch.value&lt;/th&gt;
+      &lt;th&gt;flesch.grade&lt;/th&gt;
+      &lt;th&gt;level&lt;/th&gt;
+      &lt;th&gt;average.goodreads.rating&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;469&lt;/th&gt;
+      &lt;td&gt;15&lt;/td&gt;
+      &lt;td&gt;Moby Dick&lt;/td&gt;
+      &lt;td&gt;Melville, Herman&lt;/td&gt;
+      &lt;td&gt;9&lt;/td&gt;
+      &lt;td&gt;Best Books Ever Listings/Adventure&lt;/td&gt;
+      &lt;td&gt;26.599868&lt;/td&gt;
+      &lt;td&gt;&amp;gt;= 16 (college graduate)&lt;/td&gt;
+      &lt;td&gt;C2&lt;/td&gt;
+      &lt;td&gt;3.47&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;471&lt;/th&gt;
+      &lt;td&gt;16833&lt;/td&gt;
+      &lt;td&gt;Auguste Comte and Positivism&lt;/td&gt;
+      &lt;td&gt;Mill, John Stuart&lt;/td&gt;
+      &lt;td&gt;1705&lt;/td&gt;
+      &lt;td&gt;Philosophy&lt;/td&gt;
+      &lt;td&gt;43.411004&lt;/td&gt;
+      &lt;td&gt;&amp;gt;= 13 (college)&lt;/td&gt;
+      &lt;td&gt;C2&lt;/td&gt;
+      &lt;td&gt;3.65&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;476&lt;/th&gt;
+      &lt;td&gt;18188&lt;/td&gt;
+      &lt;td&gt;Homer and Classical Philology&lt;/td&gt;
+      &lt;td&gt;Nietzsche, Friedrich Wilhelm&lt;/td&gt;
+      &lt;td&gt;779&lt;/td&gt;
+      &lt;td&gt;Philosophy&lt;/td&gt;
+      &lt;td&gt;44.382562&lt;/td&gt;
+      &lt;td&gt;&amp;gt;= 13 (college)&lt;/td&gt;
+      &lt;td&gt;C2&lt;/td&gt;
+      &lt;td&gt;3.84&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;468&lt;/th&gt;
+      &lt;td&gt;2009&lt;/td&gt;
+      &lt;td&gt;The Origin of Species by Means of Natural Sele...&lt;/td&gt;
+      &lt;td&gt;Darwin, Charles&lt;/td&gt;
+      &lt;td&gt;485&lt;/td&gt;
+      &lt;td&gt;Harvard Classics/Biology&lt;/td&gt;
+      &lt;td&gt;46.535282&lt;/td&gt;
+      &lt;td&gt;&amp;gt;= 13 (college)&lt;/td&gt;
+      &lt;td&gt;C2&lt;/td&gt;
+      &lt;td&gt;3.97&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;470&lt;/th&gt;
+      &lt;td&gt;35421&lt;/td&gt;
+      &lt;td&gt;A System of Logic: Ratiocinative and Inductive...&lt;/td&gt;
+      &lt;td&gt;Mill, John Stuart&lt;/td&gt;
+      &lt;td&gt;1705&lt;/td&gt;
+      &lt;td&gt;Philosophy&lt;/td&gt;
+      &lt;td&gt;47.673194&lt;/td&gt;
+      &lt;td&gt;&amp;gt;= 13 (college)&lt;/td&gt;
+      &lt;td&gt;C2&lt;/td&gt;
+      &lt;td&gt;2.82&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[112]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;cuts_flesch_2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cut&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;res_df&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;flesch.value&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;bins_flesch&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;cuts_rating_2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cut&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;res_df&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;average.goodreads.rating&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;bins_rating&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;groups&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;res_df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;groupby&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;by&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;cuts_flesch_2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;cuts_rating_2&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;span class="n"&gt;groups&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt output_prompt"&gt;Out[112]:&lt;/div&gt;
+
+
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;flesch.value  average.goodreads.rating
+(26.0, 27.0]  (3.0, 3.5]                  1
+(43.0, 44.0]  (3.5, 4.0]                  1
+(44.0, 45.0]  (3.5, 4.0]                  1
+(46.0, 47.0]  (3.5, 4.0]                  1
+(47.0, 48.0]  (2.5, 3.0]                  1
+dtype: int64&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Now there should be just 1 book per bucket. The final result is 142 books (&lt;code&gt;res_df.shape[0]&lt;/code&gt;). Plugged this into the existing app gives us the following result:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;img src="images/plot_after.png" alt="alt text" title="Books on this level plot -- after removing some items"&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h3 id="Calculating-readability"&gt;Calculating readability&lt;a class="anchor-link" href="#Calculating-readability"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Another thing I wanted to touch upon is the readability score calculation -- which is pretty hard. To calculate the Flesch-Kincaid readability score you need to correctly parse the text into sentences, words and syllables. The raw implementation of the formula would be as follows:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[3]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;calculate_flesch_score&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;no_of_sentences&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;no_of_words&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;no_of_syllables&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mf"&gt;206.835&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mf"&gt;1.015&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;no_of_words&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;no_of_sentences&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mf"&gt;84.6&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;no_of_syllables&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;no_of_words&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Even leaving aside the issue of what is a word vs what is a sentence (take &lt;a href="https://en.wikipedia.org/wiki/Inuit_languages#Morphology_and_syntax"&gt;Inuit languages with their extreme agglutination&lt;/a&gt;), determining the syllable count of a text is not that easy. You can use &lt;a href="http://www.speech.cs.cmu.edu/cgi-bin/cmudict"&gt;CMUDict&lt;/a&gt;, which is conveniently available via the nltk package, but there are a lot of words missing from there. Then there's &lt;a href="https://pyphen.org/"&gt;Pyphen&lt;/a&gt; but it's pretty error-prone. I also came across the &lt;a href="https://pypi.org/project/readability/"&gt;Readability package&lt;/a&gt;.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Let's see how all these perform on the benchmark of "Heart of Darkness", one of the rare cases of the books I hate so much, any time I see a copy somewhere I want to throw it out of the closest window:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[75]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;nltk&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;nltk&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;word_tokenize&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sent_tokenize&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;nltk.corpus&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;cmudict&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;readability&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pyphen&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;re&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[179]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;heart_of_darkness.txt&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;raw&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[180]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;raw&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;The Nellie&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt output_prompt"&gt;Out[180]:&lt;/div&gt;
+
+
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;646&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[181]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;raw&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;End of the Project Gutenberg EBook of Heart of Darkness, by Joseph Conrad&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt output_prompt"&gt;Out[181]:&lt;/div&gt;
+
+
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;211098&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[182]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;raw&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;raw&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;646&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;211098&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[183]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;lower_parsed&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;re&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;[^0-9a-zA-Z]+&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;raw&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lower&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[184]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;words&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;word_tokenize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lower_parsed&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[71]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;words&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt output_prompt"&gt;Out[71]:&lt;/div&gt;
+
+
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;39064&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[89]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;unique_words&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;set&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;words&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[85]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;unique_words&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt output_prompt"&gt;Out[85]:&lt;/div&gt;
+
+
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;5727&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[64]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;sentences&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sent_tokenize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;raw&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[67]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sentences&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt output_prompt"&gt;Out[67]:&lt;/div&gt;
+
+
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;2417&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;This gives me 39064 words (5727 of them unique) and 2417 sentences. Let's see how many of these words can be found in the CMUdict:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[76]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;cmudict&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;cmudict&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dict&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[90]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;no_dict&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;word&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;unique_words&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;word&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;cmudict&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;keys&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+        &lt;span class="n"&gt;no_dict&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;word&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[91]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;no_dict&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt output_prompt"&gt;Out[91]:&lt;/div&gt;
+
+
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;359&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;This means that 359 unique words are not accounted for in the CMUdict. Let's see how often they appear in the whole book:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[96]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;unique_word&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;no_dict&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;word&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;words&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;unique_word&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;word&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;507
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;That's a total of 507 words out of 39064, or ~1.3% of all the words in the book. Since this is a quick and dirty solution let's say I can live with this fact, and move on. The plan is as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;create a lookup dictionary based off the stress patterns in the CMUdict,&lt;/li&gt;
+&lt;li&gt;calculate the number of syllables in the whole book based off the lookup dictionary.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The join-fu and error handling is due to the CMUdict sometimes having two different pronunciation of the same word (obviously, but not useful to me at that moment).&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[202]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;lookup_dict&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{}&lt;/span&gt;
+&lt;span class="n"&gt;reg&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;re&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;compile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;r&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;[^\d]+&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;word&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;unique_words&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;word&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;cmudict&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;keys&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+        &lt;span class="n"&gt;lookup_dict&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;word&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;lookup_dict&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;word&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;reg&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cmudict&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;word&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;])))&lt;/span&gt;
+        &lt;span class="k"&gt;except&lt;/span&gt; &lt;span class="ne"&gt;TypeError&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;lookup_dict&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;word&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;reg&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cmudict&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;word&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;])))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[203]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;n_syl&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;word&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;words&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;n_syl&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;lookup_dict&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;word&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n_syl&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;52487
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;52487 sounds a bit low, but let's see how this translates into the score:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[204]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;calculate_flesch_score&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sentences&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;words&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;n_syl&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;76.76050250923326
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Another implementation, now fetching the syllable count with Pyphen:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[170]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pyphen&lt;/span&gt;
+&lt;span class="n"&gt;dic&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pyphen&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Pyphen&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lang&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;en_UK&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# In reality, Conrad was a Pole.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Pyphen returns a hyphenated string; I'm going to count these hyphens and add 1 to get the predicted number of syllables.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[174]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;lookup_dict&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{}&lt;/span&gt;
+&lt;span class="n"&gt;reg&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;re&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;compile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;r&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;[^-]+&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;word&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;unique_words&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;lookup_dict&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;word&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;reg&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;word&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[176]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;n_syl&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;word&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;words&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;n_syl&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;lookup_dict&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;word&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n_syl&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;39064
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;This gives me 39064 syllables, which is even more dubious.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[177]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;calculate_flesch_score&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sentences&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;words&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;n_syl&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;105.8303827058337
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;This makes no sense whatsover. A score of 105 would be for sentences of the style "I see you." (essentially, a lot of single-syllable words in really short sentences), and this book is far from that. Let's see the final implementation via the Readability package:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[196]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;readability&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[194]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;sentences&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;replace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;sentences&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;text&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sentences&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[197]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;results&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;readability&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getmeasures&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;lang&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;en&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[198]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;results&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;readability grades&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;FleschReadingEase&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;82.8232249133162
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;A score of almost 83 again seems a bit too high but it's at least close to the one calculated with the CMU dictionary. Finally, let's see how the treetagger-based implementation performed last year:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[201]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;book_list&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;book_list&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;title&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Heart of Darkness&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+    &lt;div class="prompt output_prompt"&gt;Out[201]:&lt;/div&gt;
+
+
+
+&lt;div class="output_html rendered_html output_subarea output_execute_result"&gt;
+&lt;div&gt;
+&lt;style scoped&gt;
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+&lt;/style&gt;
+&lt;table border="1" class="dataframe"&gt;
+  &lt;thead&gt;
+    &lt;tr style="text-align: right;"&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;gutenberg.id&lt;/th&gt;
+      &lt;th&gt;title&lt;/th&gt;
+      &lt;th&gt;author&lt;/th&gt;
+      &lt;th&gt;gutenberg.author.id&lt;/th&gt;
+      &lt;th&gt;gutenberg.bookshelf&lt;/th&gt;
+      &lt;th&gt;flesch.value&lt;/th&gt;
+      &lt;th&gt;flesch.grade&lt;/th&gt;
+      &lt;th&gt;level&lt;/th&gt;
+      &lt;th&gt;average.goodreads.rating&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;219&lt;/th&gt;
+      &lt;td&gt;219&lt;/td&gt;
+      &lt;td&gt;Heart of Darkness&lt;/td&gt;
+      &lt;td&gt;Conrad, Joseph&lt;/td&gt;
+      &lt;td&gt;125&lt;/td&gt;
+      &lt;td&gt;Best Books Ever Listings/Movie Books&lt;/td&gt;
+      &lt;td&gt;77.935178&lt;/td&gt;
+      &lt;td&gt;7&lt;/td&gt;
+      &lt;td&gt;B1&lt;/td&gt;
+      &lt;td&gt;3.42&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;The treetagger version has a similar score of ~78. Maybe I just really hate this book...&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+ 
+
+
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: 'center'," +
+        "    displayIndent: '0em'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['$','$'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
+        "    } " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;
+</summary><category term="python"></category><category term="nlp"></category></entry><entry><title>Removing circles, lines, and other patterns with OpenCV and Python, part II</title><link href="/removing-circles-lines-patterns-part-2.html" rel="alternate"></link><published>2019-04-14T00:00:00+02:00</published><updated>2019-04-14T00:00:00+02:00</updated><author><name>MM</name></author><id>tag:,2019-04-14:removing-circles-lines-patterns-part-2.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
