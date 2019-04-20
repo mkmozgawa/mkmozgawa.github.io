@@ -1426,7 +1426,7 @@ dtype: int64</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Another thing becomes apparent when you plot the flesch.value (<a href="click for more info on that">https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests</a>) against the average.goodreads.rating (pulled from the <a href="https://www.goodreads.com/">Goodreads</a> (API)[<a href="https://www.goodreads.com/api">https://www.goodreads.com/api</a>]) is that it's also left-skewed (right-skewed on the plot below because of the nature of the Y axis).</p>
+<p>Another thing that becomes apparent when you plot the flesch.value (<a href="click for more info on that">https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests</a>) against the average.goodreads.rating (pulled from the <a href="https://www.goodreads.com/">Goodreads</a> (API)[<a href="https://www.goodreads.com/api">https://www.goodreads.com/api</a>]) is that it's also left-skewed (right-skewed on the plot below because of the nature of the Y axis).</p>
 
 </div>
 </div>
@@ -1554,7 +1554,7 @@ dtype: int64</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's assume that for each of these buckets, the goal would be to have a single element in it, and this element would be in the middle of that particular bucket. Note that this is going to be a pretty small data frame (I'm starting with &lt;500 records) so performance isn't an issue here. Normally you'd want to pre-allocate indices, and stuff like that.</p>
+<p>Let's assume that for each of these buckets, the goal would be to have a single element in it, and this element would be as close to the average of that particular bucket as possible. Note that this is going to be a pretty small data frame (I'm starting with &lt;500 records) so performance isn't an issue here. Normally you'd want to pre-allocate indices, and stuff like that.</p>
 
 </div>
 </div>
@@ -1778,7 +1778,7 @@ dtype: int64</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now there should be just 1 book per bucket. The final result is 142 books (<code>res_df.shape[0]</code>). Plugged this into the existing app gives us the following result:</p>
+<p>Now there should be just 1 book per bucket. The final result is 142 books (<code>res_df.shape[0]</code>). Plugging this into the existing app gives us the following result:</p>
 
 </div>
 </div>
@@ -1823,7 +1823,7 @@ dtype: int64</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Even leaving aside the issue of what is a word vs what is a sentence (take <a href="https://en.wikipedia.org/wiki/Inuit_languages#Morphology_and_syntax">Inuit languages with their extreme agglutination</a>), determining the syllable count of a text is not that easy. You can use <a href="http://www.speech.cs.cmu.edu/cgi-bin/cmudict">CMUDict</a>, which is conveniently available via the nltk package, but there are a lot of words missing from there. Then there's <a href="https://pyphen.org/">Pyphen</a> but it's pretty error-prone. I also came across the <a href="https://pypi.org/project/readability/">Readability package</a>.</p>
+<p>Even leaving aside the issue of what is a word vs what is a sentence (take the <a href="https://en.wikipedia.org/wiki/Inuit_languages#Morphology_and_syntax">Inuit languages</a> with their extreme agglutination), determining the syllable count of a text is not that easy. You can use <a href="http://www.speech.cs.cmu.edu/cgi-bin/cmudict">CMUDict</a>, which is conveniently available via the nltk package, but there are a lot of words missing from there. Then there's <a href="https://pyphen.org/">Pyphen</a> but it's pretty error-prone. I also came across the <a href="https://pypi.org/project/readability/">Readability package</a> which also has its specific requirements pertaining to the pre-processing of the text.</p>
 
 </div>
 </div>
@@ -1831,7 +1831,7 @@ dtype: int64</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's see how all these perform on the benchmark of "Heart of Darkness", one of the rare cases of the books I hate so much, any time I see a copy somewhere I want to throw it out of the closest window:</p>
+<p>Let's see how all these perform on the benchmark of "Heart of Darkness", one of the rare cases of the books I hate so much, any time I see a copy of it somewhere I want to throw it out of the closest window:</p>
 
 </div>
 </div>
@@ -2444,7 +2444,7 @@ dtype: int64</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This makes no sense whatsover. A score of 105 would be for sentences of the style "I see you." (essentially, a lot of single-syllable words in really short sentences), and this book is far from that. Let's see the final implementation via the Readability package:</p>
+<p>This makes no sense whatsover. A score of 105 would be for sentences in the style of "I see you." (essentially, a lot of single-syllable words in really short sentences), and this book is far from that. Let's see the final implementation via the Readability package:</p>
 
 </div>
 </div>
@@ -2523,7 +2523,7 @@ dtype: int64</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>A score of almost 83 again seems a bit too high but it's at least close to the one calculated with the CMU dictionary. Finally, let's see how the treetagger-based implementation performed last year:</p>
+<p>The score of almost 83 again seems a bit too high but it's at least close to the one calculated with the CMU dictionary. Finally, let's see how the treetagger-based implementation performed last year:</p>
 
 </div>
 </div>
