@@ -1197,7 +1197,7 @@ h6:hover .anchor-link {
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[101]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[2]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;
@@ -1214,7 +1214,7 @@ h6:hover .anchor-link {
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[102]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[3]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;book_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read_csv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;book_list.csv&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sep&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;,&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;header&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -1227,10 +1227,11 @@ h6:hover .anchor-link {
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[103]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[4]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
-&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;book_list&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;sns&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;style&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;ticks&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;book_list&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
     &lt;/div&gt;
@@ -1243,7 +1244,7 @@ h6:hover .anchor-link {
 
 &lt;div class="output_area"&gt;
 
-    &lt;div class="prompt output_prompt"&gt;Out[103]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[4]:&lt;/div&gt;
 
 
 
@@ -1392,7 +1393,7 @@ dtype: int64&lt;/pre&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Another thing becomes apparent when you plot the flesch.value (&lt;a href="click for more info on that"&gt;https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests&lt;/a&gt;) against the average.goodreads.rating (pulled from the &lt;a href="https://www.goodreads.com/"&gt;Goodreads&lt;/a&gt; (API)[&lt;a href="https://www.goodreads.com/api"&gt;https://www.goodreads.com/api&lt;/a&gt;]) is that it's also left-skewed (right-skewed on the plot below because of the nature of the Y axis).&lt;/p&gt;
+&lt;p&gt;Another thing that becomes apparent when you plot the flesch.value (&lt;a href="click for more info on that"&gt;https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests&lt;/a&gt;) against the average.goodreads.rating (pulled from the &lt;a href="https://www.goodreads.com/"&gt;Goodreads&lt;/a&gt; (API)[&lt;a href="https://www.goodreads.com/api"&gt;https://www.goodreads.com/api&lt;/a&gt;]) is that it's also left-skewed (right-skewed on the plot below because of the nature of the Y axis).&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1520,7 +1521,7 @@ dtype: int64&lt;/pre&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Let's assume that for each of these buckets, the goal would be to have a single element in it, and this element would be in the middle of that particular bucket. Note that this is going to be a pretty small data frame (I'm starting with &amp;lt;500 records) so performance isn't an issue here. Normally you'd want to pre-allocate indices, and stuff like that.&lt;/p&gt;
+&lt;p&gt;Let's assume that for each of these buckets, the goal would be to have a single element in it, and this element would be as close to the average of that particular bucket as possible. Note that this is going to be a pretty small data frame (I'm starting with &amp;lt;500 records) so performance isn't an issue here. Normally you'd want to pre-allocate indices, and stuff like that.&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1744,7 +1745,7 @@ dtype: int64&lt;/pre&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Now there should be just 1 book per bucket. The final result is 142 books (&lt;code&gt;res_df.shape[0]&lt;/code&gt;). Plugged this into the existing app gives us the following result:&lt;/p&gt;
+&lt;p&gt;Now there should be just 1 book per bucket. The final result is 142 books (&lt;code&gt;res_df.shape[0]&lt;/code&gt;). Plugging this into the existing app gives us the following result:&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1789,7 +1790,7 @@ dtype: int64&lt;/pre&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Even leaving aside the issue of what is a word vs what is a sentence (take &lt;a href="https://en.wikipedia.org/wiki/Inuit_languages#Morphology_and_syntax"&gt;Inuit languages with their extreme agglutination&lt;/a&gt;), determining the syllable count of a text is not that easy. You can use &lt;a href="http://www.speech.cs.cmu.edu/cgi-bin/cmudict"&gt;CMUDict&lt;/a&gt;, which is conveniently available via the nltk package, but there are a lot of words missing from there. Then there's &lt;a href="https://pyphen.org/"&gt;Pyphen&lt;/a&gt; but it's pretty error-prone. I also came across the &lt;a href="https://pypi.org/project/readability/"&gt;Readability package&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Even leaving aside the issue of what is a word vs what is a sentence (take the &lt;a href="https://en.wikipedia.org/wiki/Inuit_languages#Morphology_and_syntax"&gt;Inuit languages&lt;/a&gt; with their extreme agglutination), determining the syllable count of a text is not that easy. You can use &lt;a href="http://www.speech.cs.cmu.edu/cgi-bin/cmudict"&gt;CMUDict&lt;/a&gt;, which is conveniently available via the nltk package, but there are a lot of words missing from there. Then there's &lt;a href="https://pyphen.org/"&gt;Pyphen&lt;/a&gt; but it's pretty error-prone. I also came across the &lt;a href="https://pypi.org/project/readability/"&gt;Readability package&lt;/a&gt; which also has its specific requirements pertaining to the pre-processing of the text.&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1797,7 +1798,7 @@ dtype: int64&lt;/pre&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Let's see how all these perform on the benchmark of "Heart of Darkness", one of the rare cases of the books I hate so much, any time I see a copy somewhere I want to throw it out of the closest window:&lt;/p&gt;
+&lt;p&gt;Let's see how all these perform on the benchmark of "Heart of Darkness", one of the rare cases of the books I hate so much, any time I see a copy of it somewhere I want to throw it out of the closest window:&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -2410,7 +2411,7 @@ dtype: int64&lt;/pre&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;This makes no sense whatsover. A score of 105 would be for sentences of the style "I see you." (essentially, a lot of single-syllable words in really short sentences), and this book is far from that. Let's see the final implementation via the Readability package:&lt;/p&gt;
+&lt;p&gt;This makes no sense whatsover. A score of 105 would be for sentences in the style of "I see you." (essentially, a lot of single-syllable words in really short sentences), and this book is far from that. Let's see the final implementation via the Readability package:&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -2489,7 +2490,7 @@ dtype: int64&lt;/pre&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;A score of almost 83 again seems a bit too high but it's at least close to the one calculated with the CMU dictionary. Finally, let's see how the treetagger-based implementation performed last year:&lt;/p&gt;
+&lt;p&gt;The score of almost 83 again seems a bit too high but it's at least close to the one calculated with the CMU dictionary. Finally, let's see how the treetagger-based implementation performed last year:&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
