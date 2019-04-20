@@ -136,6 +136,10 @@ th {
   color: #444;
   font-size: 14px; }
 
+main {
+  max-width: 80%;
+}
+
 /* aside */
 .sidebar {
   min-width: 5em;
