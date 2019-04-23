@@ -1393,7 +1393,7 @@ dtype: int64&lt;/pre&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Another thing that becomes apparent when you plot the flesch.value (&lt;a href="click for more info on that"&gt;https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests&lt;/a&gt;) against the average.goodreads.rating (pulled from the &lt;a href="https://www.goodreads.com/"&gt;Goodreads&lt;/a&gt; (API)[&lt;a href="https://www.goodreads.com/api"&gt;https://www.goodreads.com/api&lt;/a&gt;]) is that it's also left-skewed (right-skewed on the plot below because of the nature of the Y axis).&lt;/p&gt;
+&lt;p&gt;Another thing that becomes apparent when you plot the flesch.value (&lt;a href="https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests"&gt;click for more info on that&lt;/a&gt;) against the average.goodreads.rating (pulled from the &lt;a href="https://www.goodreads.com/"&gt;Goodreads&lt;/a&gt; &lt;a href="https://www.goodreads.com/api"&gt;API&lt;/a&gt;) is that it's also left-skewed (right-skewed on the plot below because of the nature of the Y axis).&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
