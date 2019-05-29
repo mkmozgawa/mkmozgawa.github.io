@@ -11,7 +11,7 @@ Imagine you have a Flask app with some sort of a model that depends on Tesseract
 
 ...but then it turns out you also have to have Leptonica installed first,
 
-...but it doesn't want to get it off apt, so you decide to build it from source,
+...but it doesn't want to work off apt, so you decide to build it from source,
 
 ...but then it turns out that Leptonica's docs *are not* up to date but you somehow manage to make it work,
 
