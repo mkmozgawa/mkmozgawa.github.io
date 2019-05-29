@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0"><channel><title>Magda Mozgawa</title><link>/</link><description>personal site</description><lastBuildDate>Wed, 29 May 2019 22:00:00 +0200</lastBuildDate><item><title>Flask + Tesseract in a Docker container</title><link>/docker-tesseract-flask.html</link><description>&lt;p&gt;Imagine you have a Flask app with some sort of a model that depends on Tesseract and you want to Dockerize it (because why not?)&lt;/p&gt;
 &lt;p&gt;...but then it turns out you also have to have Leptonica installed first,&lt;/p&gt;
-&lt;p&gt;...but it doesn't want to get it off apt, so you decide to build it from source,&lt;/p&gt;
+&lt;p&gt;...but it doesn't want to work off apt, so you decide to build it from source,&lt;/p&gt;
 &lt;p&gt;...but then it turns out that Leptonica's docs &lt;em&gt;are not&lt;/em&gt; up to date but you somehow manage to make it work,&lt;/p&gt;
 &lt;p&gt;...but then it turns out that the Python:3.7 image is built atop Debian Stretch which has Tesseract 3.x in apt and you want Tesseract 4.x.&lt;/p&gt;
 &lt;p&gt;This is basically the story of this Dockerfile, sans the tears and sweat. Enjoy!&lt;/p&gt;
