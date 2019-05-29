@@ -13,7 +13,7 @@ Imagine you have a Flask app with some sort of a model that depends on Tesseract
 
 ...but it doesn't want to work off apt, so you decide to build it from source,
 
-...but then it turns out that Leptonica's docs *are not* up to date but you somehow manage to make it work,
+...but then it turns out that the Leptonica's docs *are not* up to date but you somehow manage to make it work,
 
 ...but then it turns out that the Python:3.7 image is built atop Debian Stretch which has Tesseract 3.x in apt and you want Tesseract 4.x.
 
