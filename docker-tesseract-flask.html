@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Flask + Tesseract in a Docker container | Magda Mozgawa</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+  <link rel="stylesheet" media="(max-width: 750px)" href="/theme/css/mobile.css" type="text/css" />
+  <link rel="stylesheet" href="/theme/css/github.css" type="text/css" />
+  <link href="/images/favicon.ico" rel="icon" type="image/x-icon" />
+  <meta name="description" content="A pret-a-porter Dockerfile for Flask apps that use Tesseract, now in Technicolor!">
+  <meta name="keywords" content="docker, python, tesseract">
+  <meta name="author" content="Magda Mozgawa">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+      <nav>
+        <ul>
+        </ul>
+      </nav>
+
+  </aside>
+  <main>
+        
+<article class="column-right">
+  <h1 class="main-title">Flask + Tesseract in a Docker container</h1>
+  <summary>
+    <p class="light">
+      Published
+      under <a href="./category/devops.html">Devops</a>,
+      tagged with <a href="./tag/docker.html">docker</a>, <a href="./tag/python.html">python</a> and <a href="./tag/tesseract.html">tesseract</a>.
+    </p>
+  </summary>
+  <p>Imagine you have a Flask app with some sort of a model that depends on Tesseract and you want to Dockerize it (because why not?)</p>
+<p>...but then it turns out you also have to have Leptonica installed first,</p>
+<p>...but it doesn't want to get it off apt, so you decide to build it from source,</p>
+<p>...but then it turns out that Leptonica's docs <em>are not</em> up to date but you somehow manage to make it work,</p>
+<p>...but then it turns out that the Python:3.7 image is built atop Debian Stretch which has Tesseract 3.x in apt and you want Tesseract 4.x.</p>
+<p>This is basically the story of this Dockerfile, sans the tears and sweat. Enjoy!</p>
+<div class="highlight"><pre><span></span>FROM python:3.7
+
+RUN echo &#39;deb http://ftp.debian.org/debian stretch-backports main&#39; &gt; /etc/apt/sources.list.d/backports.list \
+    &amp;&amp; apt-get dist-upgrade \
+    &amp;&amp; apt-get update \
+    &amp;&amp; apt-get install -y \
+        make \
+        git \
+        g++ \
+        autoconf automake libtool \
+        pkg-config \
+        libpng-dev \
+        libjpeg62-turbo-dev \
+        libtiff5-dev \
+        zlib1g-dev \
+    &amp;&amp; mkdir /install \
+    &amp;&amp; cd /install \
+    &amp;&amp; git clone https://github.com/DanBloomberg/leptonica \
+    &amp;&amp; cd /install/leptonica \
+    &amp;&amp; ./autogen.sh \
+    &amp;&amp; ./configure \
+    &amp;&amp; make \
+    &amp;&amp; make install \
+    &amp;&amp; apt -t stretch-backports install -y tesseract-ocr  \
+    &amp;&amp; apt -t stretch-backports install -y libtesseract-dev
+
+WORKDIR /install
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY app/ /install/app/
+WORKDIR /install/app
+CMD [&quot;python&quot;, &quot;app.py&quot;]
+</pre></div>
+
+
+<p>PS so you might ask <em>why not use Ubuntu:18.04 instead?</em> to which I say:</p>
+<ol>
+<li>bloated</li>
+<li>weird <code>module Flask cannot be found</code> issues that took me a while to give up on.</li>
+</ol>
+</article>
+
+      <footer class="column-right light">
+        <nav><a href="/">Home</a> - <a href="/about.html">About me</a> - <a href="/archives.html">Archives</a> - <a href="/categories.html">Categories</a> - <a href="/tags.html">Tags</a> - <a href="https://creativecommons.org/licenses/by/4.0/">License</a></nav>
+      </footer>
+  </main>
+</body>
+</html>
