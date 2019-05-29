@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>Magda Mozgawa</title><link>/</link><description>personal site</description><lastBuildDate>Fri, 03 May 2019 20:00:00 +0200</lastBuildDate><item><title>telegren: a simple Telegram bot / joke fuel</title><link>/telegren.html</link><description>&lt;p&gt;If you use Telegram and have any kind of a running joke / gag with your friends, chances are at some point you've come up with an idea of writing your own Telegram bot to push it even further (not that there aren't any other valid uses for them...but I'm just in for the lolz). I actually decided to implement the thing and here I am after two nice evenings working with &lt;a href="https://github.com/python-telegram-bot/python-telegram-bot"&gt;python-telegram-bot&lt;/a&gt; which is a really nice wrapper around the Telegram Bot API.&lt;/p&gt;
+<rss version="2.0"><channel><title>Magda Mozgawa</title><link>/</link><description>personal site</description><lastBuildDate>Wed, 29 May 2019 22:00:00 +0200</lastBuildDate><item><title>Flask + Tesseract in a Docker container</title><link>/docker-tesseract-flask.html</link><description>&lt;p&gt;Imagine you have a Flask app with some sort of a model that depends on Tesseract and you want to Dockerize it (because why not?)&lt;/p&gt;
+&lt;p&gt;...but then it turns out you also have to have Leptonica installed first,&lt;/p&gt;
+&lt;p&gt;...but it doesn't want to get it off apt, so you decide to build it from source&lt;/p&gt;
+&lt;p&gt;...but then it turns out that Leptonica's docs &lt;em&gt;are not&lt;/em&gt; up to date but you somehow manage to make it work&lt;/p&gt;
+&lt;p&gt;...but then it turns out that the Python:3.7 image is built atop Debian Stretch which has Tesseract 3.x in apt and you want Tesseract 4.x.&lt;/p&gt;
+&lt;p&gt;This is basically the story of this Dockerfile, sans the tears and sweat. Enjoy!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;FROM python:3.7
+
+RUN echo &amp;#39;deb http://ftp.debian.org/debian stretch-backports main&amp;#39; &amp;gt; /etc/apt/sources.list.d/backports.list \
+    &amp;amp;&amp;amp; apt-get dist-upgrade \
+    &amp;amp;&amp;amp; apt-get update \
+    &amp;amp;&amp;amp; apt-get install -y \
+        make \
+        git \
+        g++ \
+        autoconf automake libtool \
+        pkg-config \
+        libpng-dev \
+        libjpeg62-turbo-dev \
+        libtiff5-dev \
+        zlib1g-dev \
+    &amp;amp;&amp;amp; mkdir /install \
+    &amp;amp;&amp;amp; cd /install \
+    &amp;amp;&amp;amp; git clone https://github.com/DanBloomberg/leptonica \
+    &amp;amp;&amp;amp; cd /install/leptonica \
+    &amp;amp;&amp;amp; ./autogen.sh \
+    &amp;amp;&amp;amp; ./configure \
+    &amp;amp;&amp;amp; make \
+    &amp;amp;&amp;amp; make install \
+    &amp;amp;&amp;amp; apt -t stretch-backports install -y tesseract-ocr  \
+    &amp;amp;&amp;amp; apt -t stretch-backports install -y libtesseract-dev
+
+WORKDIR /install
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY app/ /install/app/
+WORKDIR /install/app
+CMD [&amp;quot;python&amp;quot;, &amp;quot;app.py&amp;quot;]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;PS so you might ask &lt;em&gt;why not use Ubuntu:18.04 instead?&lt;/em&gt; to which I say:
+1. bloated
+2. weird &lt;code&gt;module Flask cannot be found&lt;/code&gt; issues that took me a while to give up on.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Magda Mozgawa</dc:creator><pubDate>Wed, 29 May 2019 22:00:00 +0200</pubDate><guid isPermaLink="false">tag:,2019-05-29:docker-tesseract-flask.html</guid><category>docker</category><category>python</category><category>tesseract</category></item><item><title>telegren: a simple Telegram bot / joke fuel</title><link>/telegren.html</link><description>&lt;p&gt;If you use Telegram and have any kind of a running joke / gag with your friends, chances are at some point you've come up with an idea of writing your own Telegram bot to push it even further (not that there aren't any other valid uses for them...but I'm just in for the lolz). I actually decided to implement the thing and here I am after two nice evenings working with &lt;a href="https://github.com/python-telegram-bot/python-telegram-bot"&gt;python-telegram-bot&lt;/a&gt; which is a really nice wrapper around the Telegram Bot API.&lt;/p&gt;
 &lt;p&gt;The version 0.1 of telegren is &lt;a href="https://github.com/mkmozgawa/telegren"&gt;available on GitHub&lt;/a&gt; -- all you need to do is to create your own bot by talking to the &lt;a href="https://telegram.me/botfather"&gt;BotFather&lt;/a&gt; and get your own Bot Token, then run the &lt;code&gt;setup&lt;/code&gt; script and finally the &lt;code&gt;telegren&lt;/code&gt; script wherever you want to host the bot. It's moderately stable now but if you come across any issues or want to add something extra just hit the &lt;a href="https://github.com/mkmozgawa/telegren/issues"&gt;Github issues&lt;/a&gt; for the project.&lt;/p&gt;
 &lt;p&gt;Don't ask me to explain the name, though. It's an inside joke.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Magda Mozgawa</dc:creator><pubDate>Fri, 03 May 2019 20:00:00 +0200</pubDate><guid isPermaLink="false">tag:,2019-05-03:telegren.html</guid><category>python</category><category>bots</category><category>telegram</category></item><item><title>On saving time and money with /etc/hosts</title><link>/DNS-hosts-savings.html</link><description>&lt;p&gt;Recently whenever I'm bored, tired and with just 20 minutes to spare (bored enough so I can't go to sleep early but too tired to do anything productive, and turning on the console for &lt;em&gt;just 20 minutes&lt;/em&gt; never works) I got onto the habit of browsing clothes, cosmetics, etc. Maybe I need to fill in some void, or maybe I've been succumbing again to the pressure of looking &lt;em&gt;presentable&lt;/em&gt; when going to the office (after several months of remote work spent in some jeans and nondescript t-shirts). Either way, there's clearly a pattern here.&lt;/p&gt;
 &lt;p&gt;So I gathered the websites I've been using too frequently for no good reason, and added them to &lt;code&gt;/etc/hosts&lt;/code&gt;. After a while, I decided to impose that ban on some other sites that seem to bring no value to me. Currently the selection is as follows:&lt;/p&gt;
