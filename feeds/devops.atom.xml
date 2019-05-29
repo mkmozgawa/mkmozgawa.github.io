@@ -1,5 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Magda Mozgawa</title><link href="/" rel="alternate"></link><link href="/feeds/devops.atom.xml" rel="self"></link><id>/</id><updated>2018-11-04T20:00:00+01:00</updated><entry><title>Setting up your own Rocketchat instance over https, and fast</title><link href="/self-hosting-chats-digital-ocean.html" rel="alternate"></link><published>2018-11-04T20:00:00+01:00</published><updated>2018-11-04T20:00:00+01:00</updated><author><name>Magda Mozgawa</name></author><id>tag:,2018-11-04:self-hosting-chats-digital-ocean.html</id><summary type="html">&lt;h3&gt;Intro&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Magda Mozgawa</title><link href="/" rel="alternate"></link><link href="/feeds/devops.atom.xml" rel="self"></link><id>/</id><updated>2019-05-29T22:00:00+02:00</updated><entry><title>Flask + Tesseract in a Docker container</title><link href="/docker-tesseract-flask.html" rel="alternate"></link><published>2019-05-29T22:00:00+02:00</published><updated>2019-05-29T22:00:00+02:00</updated><author><name>Magda Mozgawa</name></author><id>tag:,2019-05-29:docker-tesseract-flask.html</id><summary type="html">&lt;p&gt;Imagine you have a Flask app with some sort of a model that depends on Tesseract and you want to Dockerize it (because why not?)&lt;/p&gt;
+&lt;p&gt;...but then it turns out you also have to have Leptonica installed first,&lt;/p&gt;
+&lt;p&gt;...but it doesn't want to get it off apt, so you decide to build it from source,&lt;/p&gt;
+&lt;p&gt;...but then it turns out that Leptonica's docs &lt;em&gt;are not&lt;/em&gt; up to date but you somehow manage to make it work,&lt;/p&gt;
+&lt;p&gt;...but then it turns out that the Python:3.7 image is built atop Debian Stretch which has Tesseract 3.x in apt and you want Tesseract 4.x.&lt;/p&gt;
+&lt;p&gt;This is basically the story of this Dockerfile, sans the tears and sweat. Enjoy!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;FROM python:3.7
+
+RUN echo &amp;#39;deb http://ftp.debian.org/debian stretch-backports main&amp;#39; &amp;gt; /etc/apt/sources.list.d/backports.list \
+    &amp;amp;&amp;amp; apt-get dist-upgrade \
+    &amp;amp;&amp;amp; apt-get update \
+    &amp;amp;&amp;amp; apt-get install -y \
+        make \
+        git \
+        g++ \
+        autoconf automake libtool \
+        pkg-config \
+        libpng-dev \
+        libjpeg62-turbo-dev \
+        libtiff5-dev \
+        zlib1g-dev \
+    &amp;amp;&amp;amp; mkdir /install \
+    &amp;amp;&amp;amp; cd /install \
+    &amp;amp;&amp;amp; git clone https://github.com/DanBloomberg/leptonica \
+    &amp;amp;&amp;amp; cd /install/leptonica \
+    &amp;amp;&amp;amp; ./autogen.sh \
+    &amp;amp;&amp;amp; ./configure \
+    &amp;amp;&amp;amp; make \
+    &amp;amp;&amp;amp; make install \
+    &amp;amp;&amp;amp; apt -t stretch-backports install -y tesseract-ocr  \
+    &amp;amp;&amp;amp; apt -t stretch-backports install -y libtesseract-dev
+
+WORKDIR /install
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY app/ /install/app/
+WORKDIR /install/app
+CMD [&amp;quot;python&amp;quot;, &amp;quot;app.py&amp;quot;]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;PS so you might ask &lt;em&gt;why not use Ubuntu:18.04 instead?&lt;/em&gt; to which I say:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;bloated&lt;/li&gt;
+&lt;li&gt;weird &lt;code&gt;module Flask cannot be found&lt;/code&gt; issues that took me a while to give up on.&lt;/li&gt;
+&lt;/ol&gt;</summary><category term="docker"></category><category term="python"></category><category term="tesseract"></category></entry><entry><title>Setting up your own Rocketchat instance over https, and fast</title><link href="/self-hosting-chats-digital-ocean.html" rel="alternate"></link><published>2018-11-04T20:00:00+01:00</published><updated>2018-11-04T20:00:00+01:00</updated><author><name>Magda Mozgawa</name></author><id>tag:,2018-11-04:self-hosting-chats-digital-ocean.html</id><summary type="html">&lt;h3&gt;Intro&lt;/h3&gt;
 &lt;p&gt;As a 3rd year student I'm facing the much dreaded prospect ( ;) ) of the team engineering project to be completed during the last two semesters. We decided to forgo setting up the project-related Slack instance (free and quick, but a 10k message limit might not be enough, plus with the recent Slack outages...sad!)&lt;/p&gt;
 &lt;p&gt;I actually spent several afternoons in September setting up two alternatives: RocketChat and Mattermost. While using them with Docker is pretty straightforward (even if the Docker docs for Rocketchat are a bit outdated, using --link and stuff) but what really ground my gears was forwarding the ports and making it all work over https. After much effort I ended up with a setup that worked but I wasn't happy with it so I revisited it a few weeks later (under the guise of needing to migrate the infrastructure from my personal VPS to a dedicated one, obviously!)&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;I came looking for copper and I found gold&lt;/em&gt;, as they say. So without further ado, let me present you with a checklist.&lt;/p&gt;
