@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Magda Mozgawa</title><link href="/" rel="alternate"></link><link href="/feeds/magda-mozgawa.atom.xml" rel="self"></link><id>/</id><updated>2019-05-29T22:00:00+02:00</updated><entry><title>Flask + Tesseract in a Docker container</title><link href="/docker-tesseract-flask.html" rel="alternate"></link><published>2019-05-29T22:00:00+02:00</published><updated>2019-05-29T22:00:00+02:00</updated><author><name>Magda Mozgawa</name></author><id>tag:,2019-05-29:docker-tesseract-flask.html</id><summary type="html">&lt;p&gt;Imagine you have a Flask app with some sort of a model that depends on Tesseract and you want to Dockerize it (because why not?)&lt;/p&gt;
 &lt;p&gt;...but then it turns out you also have to have Leptonica installed first,&lt;/p&gt;
 &lt;p&gt;...but it doesn't want to work off apt, so you decide to build it from source,&lt;/p&gt;
-&lt;p&gt;...but then it turns out that Leptonica's docs &lt;em&gt;are not&lt;/em&gt; up to date but you somehow manage to make it work,&lt;/p&gt;
+&lt;p&gt;...but then it turns out that the Leptonica's docs &lt;em&gt;are not&lt;/em&gt; up to date but you somehow manage to make it work,&lt;/p&gt;
 &lt;p&gt;...but then it turns out that the Python:3.7 image is built atop Debian Stretch which has Tesseract 3.x in apt and you want Tesseract 4.x.&lt;/p&gt;
 &lt;p&gt;This is basically the story of this Dockerfile, sans the tears and sweat. Enjoy!&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;FROM python:3.7
