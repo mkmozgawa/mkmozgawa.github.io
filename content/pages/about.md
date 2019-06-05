@@ -6,14 +6,17 @@ Summary: About me
 Url: about.html
 Save_as: about.html
 
-This blog serves mostly as a reference guide for me; when I learn something new, I usually write it down in case I forget it. Sometimes some of that knowledge might end up here :)
+What am I up to, these days?
 
-I work as a QA at [Cognifide](https://www.cognifide.com). My professional interests revolve mostly around software development and data analysis. These days most of my learning time is devoted to NLP (everything in the still-existing gap between how computer science and linguistics look at human languages) and computer vision (especially text recognition).
+1. Learning about machine learning, especially Natural Language Processing and computer vision. The topics I find especially interesting are, in no particular order, plagiarism detection, readability, character recognition, human-computer interaction.
+2. Working on my engineering degree project (which uses 1. in some ways).
+3. Working as a QA at [Cognifide](https://www.cognifide.com).
+4. Giving back to the community, be it by co-organizing the [Rails Girls Poznan](http://www.railsgirls.com/poznan) workshops, preparing some extra classes on the English pronunciation for my fellow students, or just running around and explaining things to people in general.
+5. Reading [as much as I have time for](https://www.goodreads.com/user/show/90496754-magda) which never feels enough.
+6. Writing this blog -- it serves mostly as a reference guide for me but if you ever find it useful (or see something blatantly wrong) [let me know](mailto:hello@magda.space).
+7. Cooking, with the emphasis on vegetarian/vegan dishes (though I'm not a real vegetarian/vegan these days).
+8. Browsing and creating dank memes. :)
+9. Playing RPGs, tabletop games, and video games.
 
-Others things I enjoy: linguistics, astrophysics, RPGs, well-made food, and dank memes. 
-
-I also co-organize [Rails Girls Poznan](http://www.railsgirls.com/poznan) and will gladly support any other diversity-oriented non-profits.
-
-If you have an [interesting book to recommend](https://www.goodreads.com/user/show/90496754-magda), the best way to contact me is via [email](mailto:hello@magda.space).
 
 This page has been created using [Pelican](http://docs.getpelican.com/en/stable/index.html); its source code (and other silly projects of mine) are available [here](https://github.com/mkmozgawa).
