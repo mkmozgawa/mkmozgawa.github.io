@@ -8,7 +8,7 @@
   <link rel="stylesheet" media="(max-width: 750px)" href="/theme/css/mobile.css" type="text/css" />
   <link rel="stylesheet" href="/theme/css/github.css" type="text/css" />
   <link href="/images/favicon.ico" rel="icon" type="image/x-icon" />
-  <meta name="description" content="My adventures in the land of OpenCV, part 2: paragraph detection.">
+  <meta name="description" content="On removing the text overlay with morphological transformations and line detection.">
   <meta name="keywords" content="python, opencv">
   <meta name="author" content="MM">
 </head>
@@ -1186,7 +1186,6 @@ h6:hover .anchor-link {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>It took me a while to come up with an (at least) semi-effective method of removing the text pattern. While the thicker outlines can be disposed of pretty easily (<a href="https://magda.space/removing-circles-lines-patterns-part-1.html">click</a>, <a href="https://magda.space/removing-circles-lines-patterns-part-1-5.html">click</a>), developing a method which wouldn't harm the text too much turned out to be much more challenging.</p>
-<p>Note that the text would be much easier to remove if it was (a) thicker (b) placed more regularly throughout the page, as a simple cv2.matchTemplate would most likely suffice (and the computation for e.g. a 12-page pdf would take around 50 seconds). Unfortunately, this wouldn't help with the task at hand, nor would a more sophisticated matching algorithm. (Unless you have a lot of data and feel adventurous.)</p>
 
 </div>
 </div>
