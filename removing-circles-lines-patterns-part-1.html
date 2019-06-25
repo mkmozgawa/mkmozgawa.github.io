@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Removing circles, lines and other patterns with Python and OpenCV, part I | Magda Mozgawa</title>
+  <title>Removing circles, lines, and other patterns with OpenCV and Python, part I | Magda Mozgawa</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
   <link rel="stylesheet" media="(max-width: 750px)" href="/theme/css/mobile.css" type="text/css" />
   <link rel="stylesheet" href="/theme/css/github.css" type="text/css" />
   <link href="/images/favicon.ico" rel="icon" type="image/x-icon" />
-  <meta name="description" content="My adventures in the land of OpenCV, part 1.">
+  <meta name="description" content="On removing thick contours with OpenCV using a naive method, the Satoshi Suzuki algorithm, and the Hough transform.">
   <meta name="keywords" content="python, opencv">
   <meta name="author" content="MM">
 </head>
@@ -25,7 +25,7 @@
   <main>
         
 <article class="column-right">
-  <h1 class="main-title">Removing circles, lines and other patterns with Python and OpenCV, part I</h1>
+  <h1 class="main-title">Removing circles, lines, and other patterns with OpenCV and Python, part I</h1>
   <summary>
     <p class="light">
       Published
@@ -2277,19 +2277,6 @@ the edges of our image, and finally apply the HoughLinesP (probabilistic Hough L
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Again, you can play with the parameters of the Hough transform (depends on whether you want to err on the side of cautious or unreadable).</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Next time I'll be exploring:</p>
-<ol>
-<li>how to use the HoughCircles method (and find the fitting parameters if not by wits, then by applying brute computing force)</li>
-<li>how to remove the "obfuscated" text</li>
-<li>how to improve the quality of the text after pattern removal.</li>
-</ol>
 
 </div>
 </div>
