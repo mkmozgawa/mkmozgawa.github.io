@@ -3763,7 +3763,6 @@ h6:hover .anchor-link {
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;It took me a while to come up with an (at least) semi-effective method of removing the text pattern. While the thicker outlines can be disposed of pretty easily (&lt;a href="https://magda.space/removing-circles-lines-patterns-part-1.html"&gt;click&lt;/a&gt;, &lt;a href="https://magda.space/removing-circles-lines-patterns-part-1-5.html"&gt;click&lt;/a&gt;), developing a method which wouldn't harm the text too much turned out to be much more challenging.&lt;/p&gt;
-&lt;p&gt;Note that the text would be much easier to remove if it was (a) thicker (b) placed more regularly throughout the page, as a simple cv2.matchTemplate would most likely suffice (and the computation for e.g. a 12-page pdf would take around 50 seconds). Unfortunately, this wouldn't help with the task at hand, nor would a more sophisticated matching algorithm. (Unless you have a lot of data and feel adventurous.)&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -5316,7 +5315,7 @@ h6:hover .anchor-link {
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Why 1.5? Because I'm not addressing the issues I promised (yet) and instead present a small improvement on removing the thick outlines.&lt;/p&gt;
+&lt;p&gt;Why 1.5? Because I'm not addressing the issue of the overlay text and instead present a small improvement on removing the thick outlines.&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -5593,7 +5592,7 @@ h6:hover .anchor-link {
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">MM</dc:creator><pubDate>Fri, 05 Apr 2019 00:00:00 +0200</pubDate><guid isPermaLink="false">tag:,2019-04-05:removing-circles-lines-patterns-part-1-5.html</guid><category>python</category><category>opencv</category></item><item><title>Removing circles, lines and other patterns with Python and OpenCV, part I</title><link>/removing-circles-lines-patterns-part-1.html</link><description>&lt;style type="text/css"&gt;/*!
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">MM</dc:creator><pubDate>Fri, 05 Apr 2019 00:00:00 +0200</pubDate><guid isPermaLink="false">tag:,2019-04-05:removing-circles-lines-patterns-part-1-5.html</guid><category>python</category><category>opencv</category></item><item><title>Removing circles, lines, and other patterns with OpenCV and Python, part I</title><link>/removing-circles-lines-patterns-part-1.html</link><description>&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
@@ -7837,19 +7836,6 @@ the edges of our image, and finally apply the HoughLinesP (probabilistic Hough L
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;Again, you can play with the parameters of the Hough transform (depends on whether you want to err on the side of cautious or unreadable).&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Next time I'll be exploring:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;how to use the HoughCircles method (and find the fitting parameters if not by wits, then by applying brute computing force)&lt;/li&gt;
-&lt;li&gt;how to remove the "obfuscated" text&lt;/li&gt;
-&lt;li&gt;how to improve the quality of the text after pattern removal.&lt;/li&gt;
-&lt;/ol&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
