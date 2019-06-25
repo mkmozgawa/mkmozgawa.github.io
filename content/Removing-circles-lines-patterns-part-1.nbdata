@@ -1,8 +1,7 @@
-Title: Removing circles, lines and other patterns with Python and OpenCV, part I
+Title: Removing circles, lines, and other patterns with OpenCV and Python, part I
 Slug: removing-circles-lines-patterns-part-1
 Date: 22-03-2019
 Category: opencv
-Tags: python, opencv 
+Tags: python, opencv
 Author: MM
-Summary: My adventures in the land of OpenCV, part 1.
-
+Summary: On removing thick contours with OpenCV using a naive method, the Satoshi Suzuki algorithm, and the Hough transform.

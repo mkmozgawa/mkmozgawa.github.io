@@ -1,8 +1,7 @@
-Title: Removing circles, lines, and other patterns with OpenCV and Python, part I & 1/2 
+Title: Removing circles, lines, and other patterns with OpenCV and Python, part I & 1/2
 Slug: removing-circles-lines-patterns-part-1-5
 Date: 04-05-2019
 Category: opencv
-Tags: python, opencv 
+Tags: python, opencv
 Author: MM
-Summary: My adventures in the land of OpenCV, part 1.5.
-
+Summary: On improving the thick outline removal method with morphological transformations.
