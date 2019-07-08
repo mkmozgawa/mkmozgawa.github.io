@@ -37,7 +37,7 @@
 <p>Since the workflow of this blog involves pushing to a branch other than master any time I have to do even the smallest of changes (and then putting up a PR and high-fiving myself ;)) it's always a welcome change when I can manage with one click fewer. I've changed my post-commit hook for the project from</p>
 <p><code>pelican content -o output -s pelicanconf.py &amp;&amp; ghp-import output &amp;&amp; git push origin gh-pages</code></p>
 <p>to</p>
-<p><code>pelican content -o output -s pelicanconf.py &amp;&amp; ghp-import output &amp;&amp; git push origin gh-pages &amp;&amp; hub pull-request -c -b master -h gh-pages -m "Personal site update"</code></p>
+<p><code>pelican content -o output -s pelicanconf.py &amp;&amp; ghp-import output &amp;&amp; git push origin gh-pages &amp;&amp; hub pull-request -cf -b master -h gh-pages -m "Personal site update"</code></p>
 <p>and can now enjoy just clicking the url and hitting <em>Merge</em>. If you can see this post it means it works!</p>
 <p>And yes, I know that opening pull requests with the same title every time isn't ideal...</p>
 </article>
