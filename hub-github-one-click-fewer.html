@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>hub.github.com, or how I have to do one click fewer | Magda Mozgawa</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+  <link rel="stylesheet" media="(max-width: 750px)" href="/theme/css/mobile.css" type="text/css" />
+  <link rel="stylesheet" href="/theme/css/github.css" type="text/css" />
+  <link href="/images/favicon.ico" rel="icon" type="image/x-icon" />
+  <meta name="description" content="Thanks to the Github's Hub project I have to do one click fewer when putting up new blogs posts :)">
+  <meta name="keywords" content="git, lazy">
+  <meta name="author" content="Magda Mozgawa">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+      <nav>
+        <ul>
+        </ul>
+      </nav>
+
+  </aside>
+  <main>
+        
+<article class="column-right">
+  <h1 class="main-title">hub.github.com, or how I have to do one click fewer</h1>
+  <summary>
+    <p class="light">
+      Published
+      under <a href="./category/devops.html">Devops</a>,
+      tagged with <a href="./tag/git.html">git</a> and <a href="./tag/lazy.html">lazy</a>.
+    </p>
+  </summary>
+  <p>HN turns out to be useful from time to time. During the weekend I came across <a href="https://github.com/github/hub/">Hub</a>, a project by GitHub which allows to navigate some of the features of GitHub from the command line level.</p>
+<p>Since the workflow of this blog involves pushing to a branch other than master any time I have to do even the smallest of changes (and then putting up a PR and high-fiving myself ;)) it's always a welcome change when I can manage with one click fewer. I've changed my post-commit hook for the project from</p>
+<p><code>pelican content -o output -s pelicanconf.py &amp;&amp; ghp-import output &amp;&amp; git push origin gh-pages</code></p>
+<p>to</p>
+<p><code>pelican content -o output -s pelicanconf.py &amp;&amp; ghp-import output &amp;&amp; git push origin gh-pages &amp;&amp; hub pull-request -c -m "Personal site update"</code></p>
+<p>and can now enjoy just clicking the url and hitting <em>Merge</em>. If you can see this post it means it works!</p>
+<p>And yes, I know that opening pull requests with the same title every time isn't ideal...</p>
+</article>
+
+      <footer class="column-right light">
+        <nav><a href="/">Home</a> - <a href="/about.html">About me</a> - <a href="/archives.html">Archives</a> - <a href="/categories.html">Categories</a> - <a href="/tags.html">Tags</a> - <a href="https://creativecommons.org/licenses/by/4.0/">License</a></nav>
+      </footer>
+  </main>
+</body>
+</html>
