@@ -8,6 +8,9 @@ tags:
   - TIL
 ---
 
+> Note: this is a 2014 argumentative essay I had to write for my classes. I couldn't choose the subject I wanted, so I settled on the linguistical aspects of a certain word. I was very contrarian back then. :)
+>
+
 The word _fuck_ is used and abused by people, in contexts way exceeding the primary meaning of “to have sexual intercourse with (someone)” (OxfordDictionaries.com). Thus, it is fairly understandable why the word itself has been the topic of research of different branches of humanities, such as linguistics, culture studies, sociology, and more, united under the common name of *scatolinguistics* (Zwicky, 1992:ix).
 
 The major points of investigation seem to be _fuck_’s etymology and first recorded uses, the linguistic analysis of its syntactic and semantic properties, and its appearances in popular culture.
