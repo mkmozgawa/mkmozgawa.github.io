@@ -39,6 +39,9 @@ collections:
   entries:
     output: true
     permalink: /entries/:name/
+  public_information:
+    output: true
+    permalink: /informacje-publiczne/:name/
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
@@ -66,7 +69,7 @@ author:
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"
-      url: "https://"
+      url: "/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/mkmozgawa"
@@ -103,6 +106,17 @@ defaults:
     values:
       layout: single
       author_profile: false
+  # _public_information (public-information requests — not listed on blog root)
+  - scope:
+      path: ""
+      type: public_information
+    values:
+      layout: single
+      author_profile: true
+      read_time: false
+      comments: false
+      share: true
+      related: false
 
 category_archive:
   type: liquid
