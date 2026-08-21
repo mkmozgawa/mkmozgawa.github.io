@@ -8,3 +8,12 @@
 .author__name {
   display: none;
 }
+
+.spoiler {
+  color: #000;
+  background-color: #000;
+
+  &::selection {
+    color: #fff;
+  }
+}
