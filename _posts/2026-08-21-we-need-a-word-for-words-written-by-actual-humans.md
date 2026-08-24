@@ -1,7 +1,6 @@
 ---
 title: "We need a word for words by humans made to other humans"
 published: true
-excerpt_separator: "<!--more-->"
 last_modified_at: 2026-08-21T15:22:00+02:00
 categories:
   - Blog
