@@ -5,6 +5,7 @@ archive: false
 ---
 
 **Adresat:** Urząd Miasta Poznania<br>
+**Data wysłania:** 17 sierpnia 2026 r.<br>
 **Wydział:** Wydział Zarządzania Kryzysowego i Bezpieczeństwa<br>
 **Adres urzędu:** ul. Libelta 16/20, 61-706 Poznań
 

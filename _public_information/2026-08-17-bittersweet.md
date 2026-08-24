@@ -1,11 +1,9 @@
 ---
 title: "Bittersweet"
 date: 2026-08-17
+last_modified_at: 2026-08-24
 excerpt: "Wnioski o udostępnienie informacji publicznej dotyczące BitterSweet Festival, skierowane do Zarządu Zieleni Miejskiej i Urzędu Miasta Poznania."
 ---
-
-**Data wysłania:** 17 sierpnia 2026 r.<br>
-**Status:** doręczone
 
 ## Zarząd Zieleni Miejskiej
 
@@ -20,3 +18,4 @@ excerpt: "Wnioski o udostępnienie informacji publicznej dotyczące BitterSweet 
 ## Urząd Miasta Poznania
 
 - [BitterSweet Festival 2027 – zezwolenie na organizację imprezy]({% link _public_information/2026-08-17-wniosek-do-urzedu-miasta-poznania.md %})
+- [Odpowiedź UMP z 18 sierpnia 2026 r.]({% link _public_information/2026-08-18-odpowiedz-ump-bittersweet-festival-2026.md %})

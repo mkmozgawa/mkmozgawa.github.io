@@ -5,6 +5,7 @@ archive: false
 ---
 
 **Adresat:** Zarząd Zieleni Miejskiej w Poznaniu<br>
+**Data wysłania:** 17 sierpnia 2026 r.<br>
 **Temat:** Wniosek o informację publiczną – umowy dotyczące BitterSweet Festival 2025 i 2026
 
 ## Wniosek o udostępnienie informacji publicznej
