@@ -1,7 +1,9 @@
 main:
   - title: "Posts"
     url: /posts/
-  - title: "Informacje publiczne"
-    url: /informacje-publiczne/
   - title: "About"
     url: /about/
+  - title: "Hire me!"
+    url: /hire-me/
+  - title: "Informacje publiczne"
+    url: /informacje-publiczne/
